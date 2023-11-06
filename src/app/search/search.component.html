@@ -1,0 +1,71 @@
+<div class="example-action-buttons">
+  <button mat-button (click)="accordion.openAll()">Expand All</button>
+  <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+ 
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Miejscowość
+      </mat-panel-title>
+      <mat-panel-description>
+        Napisz nazwę miejscowości
+        <mat-icon>map</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>Miasto</mat-label>
+      <input matInput>
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       Rodzaj Noclegu
+      </mat-panel-title>
+      <mat-panel-description>
+        Jaki rodzaj noclegu cię interesuje?
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>Typ noclegu</mat-label>
+      <mat-select>
+        <mat-option value="hotel">Opcja 1</mat-option>
+        <mat-option value="opcja2">Opcja 2</mat-option>
+        <mat-option value="opcja3">Opcja 3</mat-option>
+        <mat-option value="opcja4">Opcja 4</mat-option>
+        <mat-option value="opcja5">Opcja 5</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+  </mat-expansion-panel>
+  
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      W jakich dniach chcesz wynająć nocleg?
+      </mat-panel-title>
+      <mat-panel-description>
+        Data wynajmu
+        <mat-icon>date_range</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>Od</mat-label>
+      <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+    </mat-form-field>
+    <mat-datepicker #picker></mat-datepicker>
+    
+    <mat-form-field>
+      <mat-label>Do</mat-label>
+      <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly>
+    </mat-form-field>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-expansion-panel>
+</mat-accordion>

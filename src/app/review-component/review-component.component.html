@@ -1,0 +1,52 @@
+<mat-grid-list cols="1" rowHeight="8:1">
+  <mat-grid-tile [rowspan]="4">
+    <div class="reviewed">
+      <app-accomodation-card [imageUrl]="imageUrl"></app-accomodation-card>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <form (ngSubmit)="submitOpinion()">
+      <mat-form-field>
+        <mat-label>Twoja ocena</mat-label>
+        <mat-select [(ngModel)]="newOpinion.rating" name="rating">
+          <mat-option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">{{ i }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Twoje Imie i nazwisko</mat-label>
+        <input matInput [(ngModel)]="newOpinion.author" name="author">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Twoja Opinia</mat-label>
+        <textarea matInput [(ngModel)]="newOpinion.text" name="text"></textarea>
+      </mat-form-field>
+    
+      <button type="submit" mat-raised-button color="primary">Dodaj opinie</button>
+    </form>
+  </mat-grid-tile>
+  <ng-container *ngFor="let opinion of pagedOpinions">
+    <mat-grid-tile>
+      <mat-card class="review">
+        <mat-card-content>
+          <div class="rating">
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+              <i class="material-icons">{{ i <= opinion.rating ? 'star' : 'star_border' }}</i>
+            </ng-container>
+          </div>
+          <img [src]="opinion.imageUrl" alt="{{ opinion.author }}" class="comment-avatar">
+          {{ opinion.image }}<strong>{{ opinion.author }}</strong>: {{ opinion.text }}
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
+
+
+<mat-paginator
+  [length]="opinions.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[3, 6, 9]"
+  (page)="onPageChange($event)"
+></mat-paginator>

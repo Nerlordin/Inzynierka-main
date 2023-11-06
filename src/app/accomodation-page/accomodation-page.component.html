@@ -1,0 +1,77 @@
+<div class="card">
+  <mat-card class="example-card">
+    <div class="card-content">
+      <div class="image-wrapper">
+        <img
+          mat-card-image
+          [src]="currentImage"
+          alt="Hotel Image"
+        >
+        <div class="rating-kwadrat">
+          <span class="rating">{{ rating }}</span>
+        </div>
+      </div>
+      <div class="info">
+        <mat-card-content>
+          <p class="cena">Cena: {{ price }}</p>
+          <p class="adres">Adres: {{ address }}</p>
+        </mat-card-content>
+        <mat-card-content>
+          <p class="opis">Opis: {{ description }}</p>
+        </mat-card-content>
+      </div>
+    </div>
+    <div class="gallery">
+      <img [src]="imageUrl" alt="Image 1" (click)="setCurrentImage(imageUrl)">
+      <img [src]="smallImage" alt="Image 2" (click)="setCurrentImage(smallImage)">
+      <img [src]="image2" alt="Image 3" (click)="setCurrentImage(image2)">
+    </div>
+    
+  </mat-card>
+</div>
+<div class="example-button-row">
+  <a routerLink="/review"><button mat-button color="primary">Sprawdz opinie</button></a>
+</div> 
+<div style="width: 80%; margin: 0 auto;">
+  <app-review-component></app-review-component>
+</div>
+
+
+<div class="card">
+  <mat-card class="example-card2">
+    <div class="card-content">
+      <mat-card-content>
+        <h2>Dostępne pokoje:</h2>
+        <table class="room-list">
+          <thead>
+            <tr>
+              <th>Liczba osób</th>
+              <th>Rodzaj pokoju</th>
+              <th>Cena</th>
+              <th>Liczba dostępnych pokoi</th>
+              <th>Opis</th>
+              <th>Wybierz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of dataSource">
+              <td>{{ element.liczba_osob }}</td>
+              <td>{{ element.name }}</td>
+              <td>{{ element.cena }}</td>
+              <td>{{ element.liczba_dostepnych }}</td>
+              <td>{{ element.description }}</td>
+              <td>
+                <input type="checkbox" (change)="toggleRoomSelection(element)" [checked]="isRoomSelected(element)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </div>
+    <div class="card-actions">
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="submitOrder()">Złóz zamówienie</button>
+      </div>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,29 @@
+<div class = "login">
+<div class = "kwadrat">
+<div class="container">
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Enter your username</mat-label>
+      <input matInput placeholder="Your username" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getUsernameErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+</div>
+<div class="container">
+<div class="example-container">
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      
+      
+      <input matInput placeholder="password" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+      <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+      <mat-checkbox class="example-margin">Zapamiętaj mnie</mat-checkbox>
+      <div class="example-button-row" ><button (click)="onSubmit()" mat-raised-button color="primary">Zaloguj się</button></div>
+  </div>
+</div>
+</div>
+</div>

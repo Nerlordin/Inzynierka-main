@@ -1,0 +1,19 @@
+.example-card {
+    width: 70%;
+    height: 650px;
+    float: right; 
+    margin-right: 100px;
+    margin-top: 100px;
+    
+    position: relative;
+  }
+  .example-card img {
+    max-width: 70%; /* Ogranicza szerokość obrazka do szerokości rodzica (.example-card) */
+    max-height: 70%; /* Ogranicza wysokość obrazka do wysokości rodzica (.example-card) */
+    object-fit: contain; /* Skaluje obrazek, aby zmieścić się wewnątrz rodzica, zachowując proporcje */
+  }
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+    
+  }

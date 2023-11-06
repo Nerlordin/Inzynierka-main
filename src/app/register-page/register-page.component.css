@@ -1,0 +1,36 @@
+.register{
+    padding:107px;
+    background-image: url('../../../images/tlo.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kwadrat{
+    
+    background-color: white;
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.example-container {
+    width: 300px; 
+    padding-top: 10px;
+}
+.example-button-row{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding-bottom: 10px;
+}
+mat-form-field {
+    width: 100%;
+}

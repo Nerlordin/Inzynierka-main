@@ -1,0 +1,31 @@
+
+.room-grid {
+    width: 100%;
+    margin: 20px;
+  }
+  
+  .room-card {
+    padding: 20px;
+    margin: 10px;
+  }
+  mat-grid-list{
+    background-color: gold;
+  }
+  .reservation{
+    width: 50%;
+    height: 200px;
+  }
+  .my-reservations-heading {
+    font-size: 64px; 
+    font-weight: bold; 
+    color: #333; 
+  }
+  button{
+    width: 150px;
+  }
+  mat-card-actions{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+  }
