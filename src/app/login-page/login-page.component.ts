@@ -47,7 +47,7 @@ export class LoginPageComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
+      // this.roles = this.storageService.getToken().roles;
     }
   }
 
@@ -58,7 +58,7 @@ export class LoginPageComponent {
         this.storageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
+        // this.roles = this.storageService.getUser().roles;
         this.reloadPage();
       },
       error: err => {

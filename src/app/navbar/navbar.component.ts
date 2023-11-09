@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AuthService } from '../_services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,5 +15,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   imports: [MatButtonModule, MatDividerModule, MatIconModule, RouterModule, MatToolbarModule, MatMenuModule],
 })
 export class NavbarComponent {
+  constructor(authSerivce: AuthService){
+    
+  }
   
 }

@@ -9,6 +9,12 @@ import { AccomodationPageComponent } from './accomodation-page/accomodation-page
 import { ReviewPageComponent } from './review-page/review-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { PlacesComponent } from './places/places.component';
+import { PlaceDetailsComponent } from './place-details/place-details.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { authguardGuard } from './authguard.guard';
+import { MyPlacesComponent } from './my-places/my-places.component';
 
 const routes: Routes = [
  
@@ -17,10 +23,17 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'accomodation', component: AccomodationPageComponent },
-  { path: 'review', component: ReviewPageComponent },
+  { path: 'reviews', component: ReviewPageComponent, canActivate:[authguardGuard] },
   { path: '', component: MainPageComponent, pathMatch: 'full' },
-  { path: 'profile', component: ProfilePageComponent},
-  { path: 'reservations', component: MyReservationsComponent}
+  { path: 'profile', component: ProfilePageComponent,canActivate:[authguardGuard]},
+  { path: 'reservations', component: MyReservationsComponent, canActivate:[authguardGuard]},
+  { path: 'places', component: PlacesComponent,canActivate:[authguardGuard]},
+  { path: 'places/my', component: MyPlacesComponent,canActivate:[authguardGuard]},
+  { path: 'places/:id', component: PlaceDetailsComponent, canActivate:[authguardGuard]},
+  { path: 'places/reviews/:id', component: ReviewPageComponent, canActivate:[authguardGuard]},
+  { path: 'rooms', component: RoomsComponent, canActivate:[authguardGuard]},
+  { path: 'rooms/:id', component: RoomDetailsComponent, canActivate:[authguardGuard]}
+
 ];
 
 @NgModule({

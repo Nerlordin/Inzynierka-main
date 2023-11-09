@@ -1,0 +1,10 @@
+<app-search></app-search>
+<div class="container">
+    <app-filtry></app-filtry>
+    <button (click)="search()">Szukaj</button>
+ <ng-container *ngIf="places.length >0">
+<div class="card-container" *ngFor="let place of places">
+    <app-accomodation-card [place]="place"></app-accomodation-card>
+    <mat-divider></mat-divider>
+  </div>
+</ng-container>

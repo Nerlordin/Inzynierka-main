@@ -3,6 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
+import { Place } from '../models/place';
 @Component({
   selector: 'app-accomodation-card',
   templateUrl: './accomodation-card.component.html',
@@ -11,5 +12,6 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [MatCardModule, MatButtonModule, RouterModule, MatDividerModule],
 })
 export class AccomodationCardComponent {
-  @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+  // @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+  @Input() place: Place | undefined;
 }

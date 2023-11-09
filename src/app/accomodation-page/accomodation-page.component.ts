@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ReviewComponentComponent } from '../review-component/review-component.component';
 import { MyReservationsComponent} from '../my-reservations/my-reservations.component';
 import { CdkColumnDef } from '@angular/cdk/table';
+import { RoomDTO } from '../models/roomDTO';
 
 export interface AccomodationElement { 
   liczba_osob: number;
@@ -16,11 +17,23 @@ export interface AccomodationElement {
   liczba_dostepnych: number;
   description: string;
 }
-const ELEMENT_DATA: AccomodationElement[] = [
-  { liczba_osob: 1, name: 'Pokój 1', cena: 100, liczba_dostepnych: 3, description: 'Standardowy pokój jednoosobowy'},
-  { liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze'},
-  { liczba_osob: 3, name: 'Pokój 3', cena: 200, liczba_dostepnych: 3, description: 'Apartament rodzinny'}
-];
+// const ELEMENT_DATA: AccomodationElement[] = [
+//   { liczba_osob: 1, name: 'Pokój 1', cena: 100, liczba_dostepnych: 3, description: 'Standardowy pokój jednoosobowy'},
+//   { liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze'},
+//   { liczba_osob: 3, name: 'Pokój 3', cena: 200, liczba_dostepnych: 3, description: 'Apartament rodzinny'}
+// ];
+const ELEMENT_DATA: RoomDTO[] = [
+  {
+    id:1,
+    capacity:3,
+     description:"Desc",
+     facilities: [],
+     name:"Pokoje",
+     placeId:3,
+     pricePerNight: 30,
+     state: "AVAILABLE"
+  }
+]
 
 @Component({
   selector: 'app-accomodation-page',
@@ -39,9 +52,8 @@ export class AccomodationPageComponent {
   @Input() address: string = 'adres';
   @Input() description: string = 'przykladowy opis';
   @Input() rating: number = 7.5;
-  room: AccomodationElement = { name: '', liczba_osob: 0, cena: 0, liczba_dostepnych: 0, description: '' };
   currentImage: string = this.imageUrl;
-  selectedRooms: AccomodationElement[] = [];
+  selectedRooms: RoomDTO[] = [];
   displayedColumns: string[] = ['liczba_osob', 'name', 'cena','liczba_dostepnych', 'description'];
   dataSource = ELEMENT_DATA;
 
@@ -55,10 +67,10 @@ export class AccomodationPageComponent {
     this.reservationService.addSelectedRooms(this.selectedRooms);
   }
   
-isRoomSelected(room: AccomodationElement): boolean {
+isRoomSelected(room: RoomDTO): boolean {
   return this.selectedRooms.includes(room);
 }
-toggleRoomSelection(room: AccomodationElement) {
+toggleRoomSelection(room: RoomDTO) {
   const index = this.selectedRooms.findIndex(selectedRoom => selectedRoom === room);
   if (index !== -1) {
     

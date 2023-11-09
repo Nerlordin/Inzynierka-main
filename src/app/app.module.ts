@@ -30,6 +30,14 @@ import { ReviewComponentComponent } from './review-component/review-component.co
 import { ReviewPageComponent } from './review-page/review-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
+import { PlacesComponent } from './places/places.component';
+import { CreatePlaceComponent } from './create-place/create-place.component';
+import { CreateRoomComponent } from './create-room/create-room.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { PlaceDetailsComponent } from './place-details/place-details.component';
+import { httpInterceptorProviders } from './_services/http-request-interceptor';
+import { MyPlacesComponent } from './my-places/my-places.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +45,14 @@ import { MyReservationsComponent } from './my-reservations/my-reservations.compo
     Podstrona1Component,
     Podstrona2Component,
     MainPageComponent,
-    FooterComponent,   
+    FooterComponent,
+    PlacesComponent,
+    CreatePlaceComponent,
+    CreateRoomComponent,
+    RoomsComponent,
+    RoomDetailsComponent,
+    PlaceDetailsComponent,
+    MyPlacesComponent,   
   ],
   imports: [
     MyReservationsComponent,
@@ -64,8 +79,8 @@ import { MyReservationsComponent } from './my-reservations/my-reservations.compo
     FiltryComponent,
     MatSliderModule,
   ],
-  // providers: [httpInterceptorProviders],
-  providers: [CdkColumnDef],
+  providers: [httpInterceptorProviders],
+  // providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule {

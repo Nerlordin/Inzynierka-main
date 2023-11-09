@@ -9,6 +9,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RoomDTO } from '../models/roomDTO';
+import { Reservation } from '../models/reservationDto';
+import { ReservationService } from '../_services/reservation.service';
+import { Observable, forkJoin } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,20 +25,33 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 
 export class MyReservationsComponent {
-  selectedRooms: AccomodationElement[] = [];
   pageSize = 3;
   currentPage = 0;
-  selectedRoomsTable: any[] = [
-    { name: 'Pokój 101', cena: 150 },
-    { name: 'Pokój 202', cena: 200 },
-    { name: 'Pokój 303', cena: 250 },
-    { name: 'Pokój 404', cena: 180 },
-    { name: 'Pokój 505', cena: 220 },
-    { name: 'Pokój 606', cena: 270 },
+  constructor(private reservationService: ReservationService){}
+  selectedRooms: RoomDTO[] = [
+    // { name: 'Pokój 101', cena: 150 },
+    // { name: 'Pokój 202', cena: 200 },
+    // { name: 'Pokój 303', cena: 250 },
+    // { name: 'Pokój 404', cena: 180 },
+    // { name: 'Pokój 505', cena: 220 },
+    // { name: 'Pokój 606', cena: 270 },
+    {
+      capacity: 3,
+      description:"Pokoj",
+      facilities:[],
+      id:1,
+      name:"Poko",
+      placeId:1,
+      pricePerNight:40,
+      state:"AVAILABLE"
+    }
   ];
-  addSelectedRooms(rooms: AccomodationElement[]) {
+  reservations: Reservation[] =[];
+  reservationsToAccept: Reservation[] =[];
+  selectedReservations: Reservation[] =[];
+  
+  addSelectedRooms(rooms: RoomDTO[]) {
     this.selectedRooms = rooms;
-    console.log(rooms);
   }
   getSelectedRooms() {
     return this.selectedRooms;
@@ -43,8 +60,32 @@ export class MyReservationsComponent {
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex;
   }
+  
+  reserved() {
+    this.selectedReservations = this.reservations;
+
+  }
+  toAccept(){
+    this.selectedReservations = this.reservationsToAccept;
+  }
+  cancel(id: number) {
+    this.reservationService.confirm(id).subscribe(res => res);
+  }
+  
+  reject(id: number) {
+    this.reservationService.confirm(id).subscribe(res => res);
+  }
+  confirm(id: number) {
+    this.reservationService.confirm(id).subscribe(res => res);
+  }
   ngOnInit() {
-   
+    let reservations = this.reservationService.getReservations();
+    let reservationsToAccept = this.reservationService.getReservationsToAccept();
+    forkJoin([reservations, reservationsToAccept]).subscribe(results => {
+      this.reservations = results[0];
+      this.reservationsToAccept = results[1];
+      console.log(reservationsToAccept)
+    });
   }
   deleteReservation(opinion: any) {
   }
@@ -52,10 +93,5 @@ export class MyReservationsComponent {
   editReservation(opinion: any) {
     
   }
-  constructor() {
-   
-    this.selectedRooms = [
-      { liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze' }
-    ];
-  }
+ 
 }

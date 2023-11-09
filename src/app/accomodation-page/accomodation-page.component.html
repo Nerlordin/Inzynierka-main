@@ -55,10 +55,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let element of dataSource">
-              <td>{{ element.liczba_osob }}</td>
+              <td>{{ element.capacity }}</td>
               <td>{{ element.name }}</td>
-              <td>{{ element.cena }}</td>
-              <td>{{ element.liczba_dostepnych }}</td>
+              <td>{{ element.pricePerNight }}</td>
               <td>{{ element.description }}</td>
               <td>
                 <input type="checkbox" (change)="toggleRoomSelection(element)" [checked]="isRoomSelected(element)">
