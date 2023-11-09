@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Place } from '../models/place';
 import { PlaceService } from '../_services/place.service';
-
+import {SearchPlaceFilter} from '../models/search-place-filter';
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
@@ -33,16 +33,6 @@ constructor(private placeService : PlaceService){}
     // })
   }
   search(){
-    this.placeService.getPlaces().subscribe(res => {
-      this.places = res;
-    })
+    this.placeService.getPlaces(new SearchPlaceFilter(0,0,'','',null, null,'')).subscribe(res => this.places = res);
   }
-
-  
-}
-export interface SearchPlaceFilter{
-  pricePerNight: number;
-  capacity: number;
-  street:string;
-  city:string;
 }
