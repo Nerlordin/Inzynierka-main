@@ -1,0 +1,35 @@
+<div class="register">
+  <div class="kwadrat">
+    <form [formGroup]="form">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Wybierz datę przyjazdu</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Wybierz datę wyjazdu</mat-label>
+          <input matInput [matDatepicker]="picker2">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    
+  </form>
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="goToPayment()">Przejdź do płatności</button>
+    </div>
+  </div>
+</div>
+
+        
+        

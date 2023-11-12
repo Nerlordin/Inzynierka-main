@@ -1,0 +1,51 @@
+<form [formGroup]="form">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Capacity</mat-label>
+          <input matInput formControlName="capacity" placeholder="Capacity">
+        </mat-form-field>
+      </div>
+  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+      </div>
+  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input matInput formControlName="state" placeholder="State">
+        </mat-form-field>
+      </div>
+  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Price per Night</mat-label>
+          <input matInput formControlName="pricepernight" placeholder="Price per Night">
+        </mat-form-field>
+      </div>
+  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Facilities</mat-label>
+          <input matInput formControlName="facilities" placeholder="Facilities">
+        </mat-form-field>
+      </div>
+    </div>
+  
+  </form>
+    <div>
+   
+    <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj obiekt</button>
+    <div *ngFor="let createdRoom of createdRooms">
+        <h2>Created Room</h2>
+        <p>Room ID: {{ createdRoom.roomID }}</p>
+        <p>Capacity: {{ createdRoom.capacity }}</p>
+        <p>Name: {{ createdRoom.name }}</p>
+        <p>State: {{ createdRoom.state }}</p>
+        <p>Price per Night: {{ createdRoom.pricepernight }}</p>
+        <p>Facilities: {{ createdRoom.facilities }}</p>
+      </div>

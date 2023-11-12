@@ -10,10 +10,12 @@
   }
   mat-grid-list{
     background-color: gold;
+    
   }
   .reservation{
     width: 50%;
     height: 200px;
+    
   }
   .my-reservations-heading {
     font-size: 64px; 
@@ -22,10 +24,13 @@
   }
   button{
     width: 150px;
+    display: flex;
   }
   mat-card-actions{
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 10px;
+    display: flex;
   }
+  
