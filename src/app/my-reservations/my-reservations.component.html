@@ -9,7 +9,7 @@
     <ng-container *ngFor="let reservation of selectedReservations">
         <mat-grid-tile>
           <mat-card class="reservation">
-            
+
             <mat-card-content>
                 <!-- <img mat-card-image src="https://via.placeholder.com/150" alt="Example Image"> -->
               ID:{{ reservation.id}}  Wartość: {{reservation.value}} Stan: {{reservation.state}}
@@ -23,17 +23,18 @@
             <mat-card-actions>
                     <!-- <button mat-button color="primary" (click)="deleteReservation(room)" [ngStyle]="{ 'background-color': 'red' }">Usuń rezerwację</button> -->
                     <!-- <button mat-button color="primary" (click)="editReservation(room)" [ngStyle]="{ 'background-color': 'cyan' }">Edytuj rezerwację</button> -->
+                    <button mat-button color="primary" (click)="deleteReservation(opinion)" [ngStyle]="{ 'background-color': 'red' }">Usuń rezerwację</button>
+                    <button mat-button color="primary" (click)="editReservation(opinion)" [ngStyle]="{ 'background-color': 'cyan' }">Edytuj rezerwację</button>
             </mat-card-actions>
           </mat-card>
-          
+
         </mat-grid-tile>
       </ng-container>
   </mat-grid-list>
-  
+
   <mat-paginator [length]="selectedRooms.length" [pageSize]="3" [pageSizeOptions]="[3, 6, 9]"
                 (page)="onPageChange($event)"></mat-paginator>
-                
-                
-                
-                
-                
+
+
+
+

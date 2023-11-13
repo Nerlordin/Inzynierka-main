@@ -49,18 +49,18 @@ export class MyReservationsComponent {
   reservations: Reservation[] =[];
   reservationsToAccept: Reservation[] =[];
   selectedReservations: Reservation[] =[];
-  
+
   addSelectedRooms(rooms: RoomDTO[]) {
     this.selectedRooms = rooms;
   }
   getSelectedRooms() {
     return this.selectedRooms;
-    
+
   }
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex;
   }
-  
+
   reserved() {
     this.selectedReservations = this.reservations;
 
@@ -71,7 +71,7 @@ export class MyReservationsComponent {
   cancel(id: number) {
     this.reservationService.confirm(id).subscribe(res => res);
   }
-  
+
   reject(id: number) {
     this.reservationService.confirm(id).subscribe(res => res);
   }
@@ -91,7 +91,13 @@ export class MyReservationsComponent {
   }
 
   editReservation(opinion: any) {
-    
+
   }
- 
+
+  constructor() {
+
+    this.selectedRooms = [
+      {placeID: 1,roomID: 2, liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze' }
+    ];
+  }
 }

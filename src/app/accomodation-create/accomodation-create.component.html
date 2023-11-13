@@ -1,0 +1,78 @@
+<form [formGroup]="form">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+      </div>
+  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="City">
+        </mat-form-field>
+      </div>
+    
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Building</mat-label>
+          <input matInput formControlName="building">
+        </mat-form-field>
+      </div>
+    
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Street</mat-label>
+          <input matInput formControlName="street">
+        </mat-form-field>
+      </div>
+    
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Voivodeship</mat-label>
+          <input matInput formControlName="voivodeship">
+        </mat-form-field>
+      </div>
+    
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country">
+        </mat-form-field>
+      </div>
+    
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="category">
+        </mat-form-field>
+      </div>
+    </div>
+</form>
+    <div>
+    <h3>Lista zdjęć:</h3>
+        <div *ngIf="imageUrls.length > 0" class="image-container">
+            <div *ngFor="let imageUrl of imageUrls; let i = index">
+                <img [src]="imageUrl" alt="Accomodation Image">
+                <button mat-icon-button (click)="removeImageUrl(i)">
+                <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+        
+    
+    <input matInput placeholder="Nowy URL zdjęcia" [(ngModel)]="newImageUrl">
+    <button mat-raised-button color="primary" (click)="addImageUrl()">Dodaj zdjęcie</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj obiekt</button>
+    <div *ngFor="let createdPlace of createdPlaces">
+        <h2>Created Place</h2>
+        <p>Room ID: {{ createdPlace.placeID }}</p>
+        <p>description: {{ createdPlace.description }}</p>
+        <p> building: {{ createdPlace.building }}</p>
+        <p>street: {{ createdPlace.street }}</p>
+        <p>country: {{ createdPlace.country }}</p>
+        <p>category: {{ createdPlace.category }}</p>
+      </div>

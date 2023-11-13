@@ -38,6 +38,11 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
 import { PlaceDetailsComponent } from './place-details/place-details.component';
 import { httpInterceptorProviders } from './_services/http-request-interceptor';
 import { MyPlacesComponent } from './my-places/my-places.component';
+import { EditReservationComponent } from './edit-reservation/edit-reservation.component';
+import { EditAccomodationComponent } from './edit-accomodation/edit-accomodation.component';
+import { AccomodationFormComponent } from './accomodation-form/accomodation-form.component';
+import { AccomodationCreateComponent } from './accomodation-create/accomodation-create.component';
+import { RoomCreateComponent } from './room-create/room-create.component';
 
 @NgModule({
   declarations: [
@@ -52,10 +57,15 @@ import { MyPlacesComponent } from './my-places/my-places.component';
     RoomsComponent,
     RoomDetailsComponent,
     PlaceDetailsComponent,
-    MyPlacesComponent,   
+    MyPlacesComponent,
+
   ],
   imports: [
+    RoomCreateComponent,
+    AccomodationFormComponent,
     MyReservationsComponent,
+    EditReservationComponent,
+    EditAccomodationComponent,
     ProfilePageComponent,
     ReviewPageComponent,
     ReviewComponentComponent,
@@ -78,11 +88,12 @@ import { MyPlacesComponent } from './my-places/my-places.component';
     AccomodationCardComponent,
     FiltryComponent,
     MatSliderModule,
+    AccomodationCreateComponent,
   ],
   providers: [httpInterceptorProviders],
   // providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  
+
  }

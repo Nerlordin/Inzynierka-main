@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -10,7 +11,10 @@ import { MyReservationsComponent} from '../my-reservations/my-reservations.compo
 import { CdkColumnDef } from '@angular/cdk/table';
 import { RoomDTO } from '../models/roomDTO';
 
-export interface AccomodationElement { 
+
+export interface AccomodationElement {
+  placeID: number;
+  roomID: number;
   liczba_osob: number;
   name: string;
   cena: number;
@@ -52,11 +56,22 @@ export class AccomodationPageComponent {
   @Input() address: string = 'adres';
   @Input() description: string = 'przykladowy opis';
   @Input() rating: number = 7.5;
+  room: AccomodationElement = {placeID:1,roomID:1, name: '', liczba_osob: 0, cena: 0, liczba_dostepnych: 0, description: '' };
   currentImage: string = this.imageUrl;
   selectedRooms: RoomDTO[] = [];
   displayedColumns: string[] = ['liczba_osob', 'name', 'cena','liczba_dostepnych', 'description'];
   dataSource = ELEMENT_DATA;
+  form!: FormGroup;
 
+  constructor(private reservationService: MyReservationsComponent, private fb: FormBuilder) { }
+  ngOnInit() {
+    // Initialize the form with validators if needed
+    this.form = this.fb.group({
+      roomID: ['', Validators.required],
+      placeID: ['', Validators.required],
+
+    });
+  }
   setCurrentImage(image: string) {
     this.currentImage = image;
   }
@@ -64,19 +79,34 @@ export class AccomodationPageComponent {
 
   submitOrder() {
     console.log("Metoda submitOrder() została wywołana.");
+  if (this.form.valid && this.selectedRooms.length > 0) {
+
+    const roomID = this.selectedRooms[0].roomID;
+
+
+    this.form.patchValue({ roomID });
+
+
+    const placeID = this.form.get('placeID')!.value;
+
+
+    const selectedRoomsWithIds = this.selectedRooms.map(room => ({ ...room, placeID, roomID }));
+    this.reservationService.addSelectedRooms(selectedRoomsWithIds);
+  } else {
+    console.warn('Form is not valid or no room selected.');
     this.reservationService.addSelectedRooms(this.selectedRooms);
   }
-  
+
 isRoomSelected(room: RoomDTO): boolean {
   return this.selectedRooms.includes(room);
 }
 toggleRoomSelection(room: RoomDTO) {
   const index = this.selectedRooms.findIndex(selectedRoom => selectedRoom === room);
   if (index !== -1) {
-    
+
     this.selectedRooms.splice(index, 1);
   } else {
-    
+
     this.selectedRooms.push(room);
   }
 }
