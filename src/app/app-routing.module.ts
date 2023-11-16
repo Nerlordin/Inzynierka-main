@@ -14,6 +14,7 @@ import { EditAccomodationComponent } from './edit-accomodation/edit-accomodation
 import { AccomodationFormComponent } from './accomodation-form/accomodation-form.component';
 import { AccomodationCreateComponent } from './accomodation-create/accomodation-create.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
+import { RoomSelectionComponent } from './room-selection/room-selection.component';
 
 const routes: Routes = [
  
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'accomodation/edit', component: EditAccomodationComponent},
   { path: 'accomodation/form', component: AccomodationFormComponent},
   { path: 'accomodation/create', component: AccomodationCreateComponent},
-  { path: 'room/create', component:RoomCreateComponent}
+  { path: 'room/create', component:RoomCreateComponent},
+  { path: 'room', component:RoomSelectionComponent}
 
   
 ];

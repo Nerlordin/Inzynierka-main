@@ -1,0 +1,72 @@
+
+mat-grid-tile {
+   
+    background: lightcyan;
+  }
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.example-container {
+    width: 300px; 
+    padding-top: 10px;
+}
+.example-button-row{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding-bottom: 10px;
+}
+mat-form-field {
+    width: 100%;
+}
+
+ 
+  .roomForm {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: lightcyan;
+    margin: 10px; 
+  }
+  
+  .example-container {
+    width: 100%; /* Adjust as needed */
+    padding-top: 10px;
+  }
+  
+  .example-button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .image-container {
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .image-container img {
+    width: 100px;
+    height: auto;
+    margin: 5px;
+  }
+  
+  

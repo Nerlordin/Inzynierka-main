@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-accomodation-create',
   templateUrl: './accomodation-create.component.html',
@@ -34,7 +34,7 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export class AccomodationCreateComponent {
@@ -46,7 +46,7 @@ export class AccomodationCreateComponent {
   placeID: number = 0;
   form: FormGroup; 
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
@@ -63,8 +63,14 @@ export class AccomodationCreateComponent {
   
 
   addImageUrl() {
+    if(this.imageUrls.length<5){
     if (this.newImageUrl.trim() !== '') {
       this.imageUrls.push(this.newImageUrl);
+      this.newImageUrl = '';
+    }
+    }
+    else{
+      console.log("za duzo zdjec")
       this.newImageUrl = '';
     }
   }
@@ -80,10 +86,12 @@ export class AccomodationCreateComponent {
         (response) => {
           console.log('Data sent successfully:', response);    
           this.form.reset(); 
+          this.imageUrls = [];
         },
         (error) => {
           console.error('Error sending data:', error);
-          this.form.reset(); 
+          this.form.reset();
+          this.imageUrls = []; 
         }
       );
     }
@@ -94,9 +102,13 @@ export class AccomodationCreateComponent {
       const createdPlace = {
         placeID: this.placeID,
         ...this.form.value,
+        images: [...this.imageUrls], 
       };
       this.createdPlaces.push(createdPlace);
       this.form.reset();
+      this.imageUrls = [];
+
+      this.router.navigate(['/room'], { state: { createdPlaces: this.createdPlaces } });
     }
   }
 }

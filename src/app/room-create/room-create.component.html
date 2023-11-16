@@ -1,5 +1,7 @@
-<form [formGroup]="form">
-    <div class="container">
+
+<div class="roomForm">
+  <div class="container">
+    <form [formGroup]="form">
       <div class="example-container">
         <mat-form-field>
           <mat-label>Capacity</mat-label>
@@ -34,18 +36,66 @@
           <input matInput formControlName="facilities" placeholder="Facilities">
         </mat-form-field>
       </div>
-    </div>
-  
-  </form>
-    <div>
-   
-    <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj obiekt</button>
-    <div *ngFor="let createdRoom of createdRooms">
-        <h2>Created Room</h2>
-        <p>Room ID: {{ createdRoom.roomID }}</p>
-        <p>Capacity: {{ createdRoom.capacity }}</p>
-        <p>Name: {{ createdRoom.name }}</p>
-        <p>State: {{ createdRoom.state }}</p>
-        <p>Price per Night: {{ createdRoom.pricepernight }}</p>
-        <p>Facilities: {{ createdRoom.facilities }}</p>
+
+    </form>
+  </div>
+
+  <div class="container image-container">
+    <h3>Lista zdjęć:</h3>
+    <div *ngIf="imageUrls.length > 0">
+      <div *ngFor="let imageUrl of imageUrls; let i = index">
+        <img [src]="imageUrl" alt="Room Images">
+        <button mat-icon-button (click)="removeImageUrl(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container example-button-row">
+  <input matInput placeholder="Nowy URL zdjęcia" [(ngModel)]="newImageUrl">
+  <button mat-raised-button color="primary" (click)="addImageUrl()">Dodaj zdjęcie</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj obiekt</button>
+</div>
+
+<div *ngFor="let createdRoom of createdRooms">
+  <h2>Created Room</h2>
+  <p>Room ID: {{ createdRoom.roomID }}</p>
+  <p>Capacity: {{ createdRoom.capacity }}</p>
+  <p>Name: {{ createdRoom.name }}</p>
+  <p>State: {{ createdRoom.state }}</p>
+  <p>Price per Night: {{ createdRoom.pricepernight }}</p>
+  <p>Facilities: {{ createdRoom.facilities }}</p>
+</div>
+<div class="container image-container">
+  <h3>Przesłane zdjęcia:</h3>
+  <div *ngIf="createdRooms.length > 0">
+    <div *ngFor="let createdPlace of createdRooms">
+      <div *ngFor="let imageUrl of createdPlace.images">
+        <img [src]="imageUrl" alt="Uploaded Image">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+      
