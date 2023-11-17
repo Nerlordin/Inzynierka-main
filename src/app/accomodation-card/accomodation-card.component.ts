@@ -13,4 +13,9 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class AccomodationCardComponent {
   @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+  @Input() name: string = '';
+  @Input() desription: string = '';
+  @Input() price: number = 0;
+  @Input() rating: number = 0;
+
 }

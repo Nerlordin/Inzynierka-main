@@ -48,9 +48,9 @@ export class AccomodationCreateComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
-      city: [null, Validators.required],
+      name: [null, Validators.required, Validators.minLength(5)],
+      description: [null, Validators.required, Validators.maxLength(100)],
+      city: [null, Validators.required, Validators.maxLength(30)],
       building: [null, Validators.required],
       street: [null, Validators.required],
       voivodeship: [null, Validators.required],
