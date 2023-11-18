@@ -43,6 +43,7 @@ import { EditAccomodationComponent } from './edit-accomodation/edit-accomodation
 import { AccomodationFormComponent } from './accomodation-form/accomodation-form.component';
 import { AccomodationCreateComponent } from './accomodation-create/accomodation-create.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
+import { RoomSelectionComponent } from './room-selection/room-selection.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { RoomCreateComponent } from './room-create/room-create.component';
     Podstrona2Component,
     MainPageComponent,
     FooterComponent,
+    RoomSelectionComponent,
+
     PlacesComponent,
     CreatePlaceComponent,
     CreateRoomComponent,

@@ -1,0 +1,18 @@
+<div *ngFor="let createdPlace of createdPlaces">
+    <h2>Created Place</h2>
+    <p>Place ID: {{ createdPlace.placeID }}</p>
+    <p>Name: {{ createdPlace.name }}</p>
+    <p>Description: {{ createdPlace.description }}</p>
+    <p>City: {{ createdPlace.city }}</p>
+    <p>Building: {{ createdPlace.building }}</p>
+    <p>Street: {{ createdPlace.street }}</p>
+    <p>Voivodeship: {{ createdPlace.voivodeship }}</p>
+    <p>Country: {{ createdPlace.country }}</p>
+    <p>Category: {{ createdPlace.category }}</p>
+  
+    <h3>Images:</h3>
+    <div *ngIf="createdPlace.images && createdPlace.images.length > 0">
+      <img *ngFor="let imageUrl of createdPlace.images" [src]="imageUrl" alt="Accommodation Image">
+    </div>
+  </div>
+  

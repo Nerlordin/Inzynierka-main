@@ -46,6 +46,7 @@ export class RoomCreateComponent {
   createdRooms: any[] = [];
   form: FormGroup; 
   roomID: number = 0;
+  roomNameFilter: string = '';
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
       capacity: [null, Validators.required],
@@ -54,9 +55,33 @@ export class RoomCreateComponent {
       pricepernight: [null, Validators.required],
       facilities: [null, Validators.required],
     });
+    this.generateBasicRooms();
   }
   
-  
+  generateBasicRooms() {
+    this.roomID++;
+    const room1 = {
+      roomID: this.roomID,
+      capacity: 2,
+      name: 'Basic Room 1',
+      state: 'Available',
+      pricepernight: 50,
+      facilities: 'Wi-Fi, TV',
+    };
+
+    this.roomID++;
+    const room2 = {
+      roomID: this.roomID,
+      capacity: 3,
+      name: 'Basic Room 2',
+      state: 'Occupied',
+      pricepernight: 70,
+      facilities: 'Wi-Fi, TV, Air Conditioning',
+    };
+
+ 
+    this.createdRooms.push(room1, room2);
+  }
 
   addImageUrl() {
     if (this.newImageUrl.trim() !== '') {
@@ -79,6 +104,7 @@ export class RoomCreateComponent {
       const roomData = {
         roomID: generatedRoomID,
         ...this.form.value,
+         images: [...this.imageUrls], 
       };
 
       this.http.post(apiUrl, roomData).subscribe(
@@ -86,6 +112,7 @@ export class RoomCreateComponent {
           console.log('Data sent successfully:', response);
           this.createdRoom = response; 
           this.form.reset();
+          this.imageUrls = [];
         },
         (error) => {
           console.error('Error sending data:', error);
@@ -94,18 +121,20 @@ export class RoomCreateComponent {
       );
     }
   }*/
+
   onSubmit() {
     if (this.form.valid) {
-      // Increment the RoomID for each new room
       this.roomID++;
 
       const createdRoom = {
         roomID: this.roomID,
         ...this.form.value,
+        images: [...this.imageUrls], 
       };
 
       this.createdRooms.push(createdRoom);
       this.form.reset();
+      this.imageUrls = [];
     }
   }
 }

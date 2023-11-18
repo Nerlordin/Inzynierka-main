@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { PlaceService } from '../_services/place.service';
 import { Place } from '../models/place';
 
@@ -36,7 +37,7 @@ import { Place } from '../models/place';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export class AccomodationCreateComponent {
@@ -46,28 +47,35 @@ export class AccomodationCreateComponent {
   createdPlaces: any[] = [];
 
   placeID: number = 0;
-  form: FormGroup; 
+  form: FormGroup;
 
+  constructor(private fb: FormBuilder, private router: Router) {
   constructor(private placeService: PlaceService, private fb: FormBuilder, private http: HttpClient) {
-    
+
     this.form = this.fb.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
-      city: [null, Validators.required],
+      name: [null, Validators.required, Validators.minLength(5)],
+      description: [null, Validators.required, Validators.maxLength(100)],
+      city: [null, Validators.required, Validators.maxLength(30)],
       building: [null, Validators.required],
       street: [null, Validators.required],
       voivodeship: [null, Validators.required],
-      country: [null, Validators.required], 
+      country: [null, Validators.required],
       category: [null, Validators.required],
       file: [''],
     });
   }
-  
-  
+
+
 
   addImageUrl() {
+    if(this.imageUrls.length<5){
     if (this.newImageUrl.trim() !== '') {
       this.imageUrls.push(this.newImageUrl);
+      this.newImageUrl = '';
+    }
+    }
+    else{
+      console.log("za duzo zdjec")
       this.newImageUrl = '';
     }
   }
@@ -78,15 +86,15 @@ export class AccomodationCreateComponent {
  /* onSubmit() {
     if (this.form.valid) {
       const apiUrl = 'your_server_api_url';
-     
+
       this.http.post(apiUrl, this.form.value).subscribe(
         (response) => {
-          console.log('Data sent successfully:', response);    
-          this.form.reset(); 
+          console.log('Data sent successfully:', response);
+          this.form.reset();
         },
         (error) => {
           console.error('Error sending data:', error);
-          this.form.reset(); 
+          this.form.reset();
         }
       );
     }
@@ -97,9 +105,13 @@ export class AccomodationCreateComponent {
       const createdPlace = {
         placeID: this.placeID,
         ...this.form.value,
+        images: [...this.imageUrls],
       };
       this.createdPlaces.push(createdPlace);
       this.form.reset();
+      this.imageUrls = [];
+
+      this.router.navigate(['/room'], { state: { createdPlaces: this.createdPlaces } });
     }
   }
 }
