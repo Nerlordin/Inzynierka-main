@@ -50,7 +50,7 @@ import { RoomSelectionComponent } from './room-selection/room-selection.componen
     AppComponent,
     Podstrona1Component,
     Podstrona2Component,
-    MainPageComponent,
+  
     FooterComponent,
     RoomSelectionComponent,
 
@@ -64,6 +64,7 @@ import { RoomSelectionComponent } from './room-selection/room-selection.componen
 
   ],
   imports: [
+    MainPageComponent,
     RoomCreateComponent,
     AccomodationFormComponent,
     MyReservationsComponent,

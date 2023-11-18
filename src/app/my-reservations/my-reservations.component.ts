@@ -13,70 +13,90 @@ import { RoomDTO } from '../models/roomDTO';
 import { Reservation } from '../models/reservationDto';
 import { ReservationService } from '../_services/reservation.service';
 import { Observable, forkJoin } from 'rxjs';
+import {MatListModule} from '@angular/material/list'; 
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table'; 
+import {MatSelectModule} from '@angular/material/select'; 
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
 @Injectable({
   providedIn: 'root',
 })
+
 @Component({
   selector: 'app-my-reservations',
   templateUrl: './my-reservations.component.html',
   styleUrls: ['./my-reservations.component.css'],
   standalone: true,
-  imports: [RouterModule, CommonModule,MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule,MatListModule,MatFormFieldModule,MatTableModule, MatSelectModule,MatRadioModule,CommonModule,MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
 })
 
 export class MyReservationsComponent {
   pageSize = 3;
   currentPage = 0;
-  constructor(private reservationService: ReservationService){}
-  selectedRooms: RoomDTO[] = [
-    // { name: 'Pokój 101', cena: 150 },
-    // { name: 'Pokój 202', cena: 200 },
-    // { name: 'Pokój 303', cena: 250 },
-    // { name: 'Pokój 404', cena: 180 },
-    // { name: 'Pokój 505', cena: 220 },
-    // { name: 'Pokój 606', cena: 270 },
-    {
-      capacity: 3,
-      description:"Pokoj",
-      facilities:[],
-      id:1,
-      name:"Poko",
-      placeId:1,
-      pricePerNight:40,
-      state:"AVAILABLE"
-    }
-  ];
+  displayedColumns: string[] = ['id', 'placeId', 'checkIn', 'checkOut', 'state','value','actions'];
+  constructor(private reservationService: ReservationService){
+    this.state.valueChanges.subscribe(value => {
+      this.selectReservations();
+      if(value !=='ALL' && value !== ''){
+        this.selectedReservations = this.selectedReservations.filter(reservation => reservation.state ==value)
+      }
+    })
+  }
+  state = new FormControl('');
+
+  possibleStates: string[] = ['ALL','CANCELLED','CONFIRMED','WAITING'];
   reservations: Reservation[] =[];
   reservationsToAccept: Reservation[] =[];
   selectedReservations: Reservation[] =[];
+  myObjects = false;
 
-  addSelectedRooms(rooms: RoomDTO[]) {
-    this.selectedRooms = rooms;
+
+  selectReservations() {
+    if(this.myObjects == true){
+      this.selectedReservations = this.reservationsToAccept;
+    }
+    if(this.myObjects == false){
+      this.selectedReservations = this.reservations;
+    }
+
   }
-  getSelectedRooms() {
-    return this.selectedRooms;
-
+  canConfirm(reservation: Reservation) {
+    return reservation.state == 'WAITING' && this.myObjects == true;
+  }
+  canCancel(reservation: Reservation) {
+    return reservation.state !== 'CANCELLED' 
   }
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex;
   }
 
   reserved() {
-    this.selectedReservations = this.reservations;
-
+   
+    this.myObjects = false;
+    this.selectReservations();
   }
   toAccept(){
-    this.selectedReservations = this.reservationsToAccept;
+    this.myObjects = true;
+    this.selectReservations();
+
   }
   cancel(id: number) {
-    this.reservationService.confirm(id).subscribe(res => res);
+    this.reservationService.cancel(id)
+    .subscribe(res => {
+      window.location.reload();
+    });
   }
 
   reject(id: number) {
     this.reservationService.confirm(id).subscribe(res => res);
   }
   confirm(id: number) {
-    this.reservationService.confirm(id).subscribe(res => res);
+    this.reservationService.confirm(id).subscribe(res => {
+      window.location.reload();
+    });
   }
   ngOnInit() {
     let reservations = this.reservationService.getReservations();
@@ -84,10 +104,11 @@ export class MyReservationsComponent {
     forkJoin([reservations, reservationsToAccept]).subscribe(results => {
       this.reservations = results[0];
       this.reservationsToAccept = results[1];
-      console.log(reservationsToAccept)
+      this.selectReservations();
     });
   }
   deleteReservation(opinion: any) {
+
   }
 
   editReservation(opinion: any) {

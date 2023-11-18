@@ -49,8 +49,7 @@ export class AccomodationCreateComponent {
   placeID: number = 0;
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-  constructor(private placeService: PlaceService, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder,private placeService: PlaceService, private router: Router) {
 
     this.form = this.fb.group({
       name: [null, Validators.required, Validators.minLength(5)],

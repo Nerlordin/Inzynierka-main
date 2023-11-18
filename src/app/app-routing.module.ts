@@ -32,13 +32,12 @@ const routes: Routes = [
   { path: 'accomodation', component: AccomodationPageComponent },
   { path: 'reviews', component: ReviewPageComponent, canActivate:[authguardGuard] },
   { path: '', component: MainPageComponent, pathMatch: 'full' },
-  { path: 'profile', component: ProfilePageComponent},
   { path: 'reservations', component: MyReservationsComponent},
   { path: 'reservations/edit', component: EditReservationComponent},
   { path: 'accomodation/edit', component: EditAccomodationComponent},
   { path: 'accomodation/form', component: AccomodationFormComponent},
   { path: 'accomodation/create', component: AccomodationCreateComponent},
-  { path: 'room/create', component:RoomCreateComponent}
+  { path: 'room/create', component:RoomCreateComponent},
 
 
   { path: 'profile', component: ProfilePageComponent,canActivate:[authguardGuard]},

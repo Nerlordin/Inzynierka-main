@@ -90,10 +90,10 @@ export class AccomodationPageComponent {
 
 
     const selectedRoomsWithIds = this.selectedRooms.map(room => ({ ...room, placeID, roomID }));
-    this.reservationService.addSelectedRooms(selectedRoomsWithIds);
+    // this.reservationService.addSelectedRooms(selectedRoomsWithIds);
   } else {
     console.warn('Form is not valid or no room selected.');
-    this.reservationService.addSelectedRooms(this.selectedRooms);
+    // this.reservationService.addSelectedRooms(this.selectedRooms);
   }
 }
 

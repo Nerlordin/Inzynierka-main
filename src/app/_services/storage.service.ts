@@ -18,12 +18,11 @@ export class StorageService {
 
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
-    // window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
     window.sessionStorage.setItem(USER_KEY, user.token);
   }
 
-  public logOut() : void{
-    window.sessionStorage.removeItem(USER_KEY);
+  public signOut() : void{
+    window.sessionStorage.clear();
   }
   
   public getToken(): string{

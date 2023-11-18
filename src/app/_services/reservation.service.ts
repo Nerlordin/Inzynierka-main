@@ -13,7 +13,10 @@ const httpOptions = {
 })
 export class ReservationService {
   confirm(id: number) {
-    return this.http.get<Reservation[]>(`${API_URL}/confirmation`,httpOptions);
+    return this.http.put<Reservation[]>(`${API_URL}/${id}/confirmation`,httpOptions);
+  }
+  cancel(id: number) {
+    return this.http.put<Reservation[]>(`${API_URL}/${id}/cancellation`,httpOptions);
   }
   getReservationsToAccept() {
     return this.http.get<Reservation[]>(`${API_URL}/confirmation`,httpOptions);
