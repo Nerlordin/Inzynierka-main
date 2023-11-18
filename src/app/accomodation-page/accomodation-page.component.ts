@@ -56,7 +56,7 @@ export class AccomodationPageComponent {
   @Input() address: string = 'adres';
   @Input() description: string = 'przykladowy opis';
   @Input() rating: number = 7.5;
-  room: AccomodationElement = {placeID:1,roomID:1, name: '', liczba_osob: 0, cena: 0, liczba_dostepnych: 0, description: '' };
+  // room: AccomodationElement = {placeID:1,roomID:1, name: '', liczba_osob: 0, cena: 0, liczba_dostepnych: 0, description: '' };
   currentImage: string = this.imageUrl;
   selectedRooms: RoomDTO[] = [];
   displayedColumns: string[] = ['liczba_osob', 'name', 'cena','liczba_dostepnych', 'description'];
@@ -75,13 +75,12 @@ export class AccomodationPageComponent {
   setCurrentImage(image: string) {
     this.currentImage = image;
   }
-  constructor(private reservationService: MyReservationsComponent) { }
 
   submitOrder() {
     console.log("Metoda submitOrder() została wywołana.");
   if (this.form.valid && this.selectedRooms.length > 0) {
 
-    const roomID = this.selectedRooms[0].roomID;
+    const roomID = this.selectedRooms[0].id;
 
 
     this.form.patchValue({ roomID });
@@ -96,6 +95,7 @@ export class AccomodationPageComponent {
     console.warn('Form is not valid or no room selected.');
     this.reservationService.addSelectedRooms(this.selectedRooms);
   }
+}
 
 isRoomSelected(room: RoomDTO): boolean {
   return this.selectedRooms.includes(room);

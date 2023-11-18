@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Place } from '../models/place';
+import { SearchPlaceFilter } from '../models/search-place-filter';
+import { CreatePlaceRequest } from '../models/create-place-request';
 
 const API_URL = 'http://localhost:9990/places';
 const httpOptions = {
@@ -11,6 +13,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class PlaceService {
+  addPlace(place: CreatePlaceRequest) {
+    this.http.post(API_URL,place).subscribe(res => res);
+  }
   constructor(private http: HttpClient) {}
   getPlaces(filter: SearchPlaceFilter ) : Observable<Place[]>{
     let queryParams = new HttpParams();

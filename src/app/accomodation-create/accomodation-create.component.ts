@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { PlaceService } from '../_services/place.service';
+import { Place } from '../models/place';
 
 @Component({
   selector: 'app-accomodation-create',
@@ -46,7 +48,8 @@ export class AccomodationCreateComponent {
   placeID: number = 0;
   form: FormGroup; 
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private placeService: PlaceService, private fb: FormBuilder, private http: HttpClient) {
+    
     this.form = this.fb.group({
       name: [null, Validators.required],
       description: [null, Validators.required],

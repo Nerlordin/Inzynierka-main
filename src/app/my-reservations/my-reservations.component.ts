@@ -93,11 +93,4 @@ export class MyReservationsComponent {
   editReservation(opinion: any) {
 
   }
-
-  constructor() {
-
-    this.selectedRooms = [
-      {placeID: 1,roomID: 2, liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze' }
-    ];
-  }
 }

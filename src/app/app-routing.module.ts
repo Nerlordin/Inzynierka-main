@@ -20,6 +20,7 @@ import { EditAccomodationComponent } from './edit-accomodation/edit-accomodation
 import { AccomodationFormComponent } from './accomodation-form/accomodation-form.component';
 import { AccomodationCreateComponent } from './accomodation-create/accomodation-create.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
+import { CreatePlaceComponent } from './create-place/create-place.component';
 
 const routes: Routes = [
 
@@ -30,11 +31,11 @@ const routes: Routes = [
   { path: 'accomodation', component: AccomodationPageComponent },
   { path: 'reviews', component: ReviewPageComponent, canActivate:[authguardGuard] },
   { path: '', component: MainPageComponent, pathMatch: 'full' },
-  { path: 'reservations/edit', component: EditReservationComponent},
-  { path: 'accomodation/edit', component: EditAccomodationComponent},
-  { path: 'accomodation/form', component: AccomodationFormComponent},
-  { path: 'accomodation/create', component: AccomodationCreateComponent},
-  { path: 'room/create', component:RoomCreateComponent}
+  { path: 'reservations/edit', component: EditReservationComponent,canActivate:[authguardGuard]},
+  { path: 'accomodation/edit', component: EditAccomodationComponent,canActivate:[authguardGuard]},
+  { path: 'accomodation/form', component: AccomodationFormComponent,canActivate:[authguardGuard]},
+  { path: 'accomodation/create', component: CreatePlaceComponent,canActivate:[authguardGuard]},
+  { path: 'room/create', component:RoomCreateComponent,canActivate:[authguardGuard]},
 
 
   { path: 'profile', component: ProfilePageComponent,canActivate:[authguardGuard]},
