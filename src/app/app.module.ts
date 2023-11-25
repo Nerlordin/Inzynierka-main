@@ -44,27 +44,38 @@ import { AccomodationFormComponent } from './accomodation-form/accomodation-form
 import { AccomodationCreateComponent } from './accomodation-create/accomodation-create.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
 import { RoomSelectionComponent } from './room-selection/room-selection.component';
+import { MyOffersComponent } from './my-offers/my-offers.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormField } from '@angular/material/form-field';
+import { ReservePlaceDialogComponent } from './reserve-place-dialog/reserve-place-dialog.component';
+import { GenerateReportDialogComponent } from './generate-report-dialog/generate-report-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Podstrona1Component,
     Podstrona2Component,
-  
     FooterComponent,
     RoomSelectionComponent,
-
-    PlacesComponent,
-    CreatePlaceComponent,
+  
+ 
     CreateRoomComponent,
     RoomsComponent,
-    RoomDetailsComponent,
-    PlaceDetailsComponent,
-    MyPlacesComponent,
+
 
   ],
   imports: [
-    MainPageComponent,
+    GenerateReportDialogComponent,
+    MatDialogModule ,
+    ChangePasswordDialogComponent,
+    ReservePlaceDialogComponent,
+    RoomDetailsComponent,
+    MyOffersComponent,
+    PlaceDetailsComponent,
+    PlacesComponent,
+    CreatePlaceComponent,
+    MainPageComponent,MyPlacesComponent,
     RoomCreateComponent,
     AccomodationFormComponent,
     MyReservationsComponent,
@@ -95,6 +106,7 @@ import { RoomSelectionComponent } from './room-selection/room-selection.componen
     AccomodationCreateComponent,
   ],
   providers: [httpInterceptorProviders],
+  
   // providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,7 @@
-export interface Review{
-    
+export interface Review {
+
+    rating: number
+    placeId: number
+    author: string
+    content: string
 }

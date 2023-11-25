@@ -1,78 +1,184 @@
-<form [formGroup]="form">
+<div class="container">
+  <h1>Miejsce</h1>
+  <form [formGroup]="placeForm">
     <div class="container">
       <div class="example-container">
         <mat-form-field>
           <mat-label>Description</mat-label>
-          <input matInput formControlName="description">
+          <input matInput formControlName="description" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
         </mat-form-field>
       </div>
-  
       <div class="example-container">
         <mat-form-field>
           <mat-label>City</mat-label>
-          <input matInput formControlName="city" placeholder="City">
+          <input matInput formControlName="city" placeholder="City" />
         </mat-form-field>
-      </div>
-    
-      <div class="example-container">
+
         <mat-form-field>
           <mat-label>Building</mat-label>
-          <input matInput formControlName="building">
+          <input matInput formControlName="building" />
         </mat-form-field>
-      </div>
-    
-      <div class="example-container">
+
         <mat-form-field>
           <mat-label>Street</mat-label>
-          <input matInput formControlName="street">
+          <input matInput formControlName="street" />
         </mat-form-field>
-      </div>
-    
-      <div class="example-container">
         <mat-form-field>
           <mat-label>Voivodeship</mat-label>
-          <input matInput formControlName="voivodeship">
+          <mat-select formControlName="voivodeship">
+            <mat-select-trigger>
+              {{ placeForm.get("voivodeship")?.value! || "" }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let v of voivodeships" [value]="v">{{
+              v
+            }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-    
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Country</mat-label>
-          <input matInput formControlName="country">
-        </mat-form-field>
-      </div>
-    
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Category</mat-label>
-          <input matInput formControlName="category">
-        </mat-form-field>
-      </div>
+
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-select-trigger>
+            {{ placeForm.get("category")?.value! || "" }}
+          </mat-select-trigger>
+          <mat-option *ngFor="let cat of categories" [value]="cat">{{
+            cat
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-</form>
-    <div>
+  </form>
+  <div>
     <h3>Lista zdjęć:</h3>
-        <div *ngIf="imageUrls.length > 0" class="image-container">
-            <div *ngFor="let imageUrl of imageUrls; let i = index">
-                <img [src]="imageUrl" alt="Accomodation Image">
-                <button mat-icon-button (click)="removeImageUrl(i)">
-                <!-- <mat-icon>delete</mat-icon> -->
-                </button>
-            </div>
-        </div>
-    </div>
-    
-        
-    
-    <input matInput placeholder="Nowy URL zdjęcia" >
-    <button mat-raised-button color="primary" (click)="addImageUrl()">Dodaj zdjęcie</button>
-    <button mat-raised-button color="primary" (click)="onSubmit()">Dodaj obiekt</button>
-    <div *ngFor="let createdPlace of createdPlaces">
-        <h2>Created Place</h2>
-        <p>Room ID: {{ createdPlace.placeID }}</p>
-        <p>description: {{ createdPlace.description }}</p>
-        <p> building: {{ createdPlace.building }}</p>
-        <p>street: {{ createdPlace.street }}</p>
-        <p>country: {{ createdPlace.country }}</p>
-        <p>category: {{ createdPlace.category }}</p>
+    <div *ngIf="imageUrls.length > 0" class="image-container">
+      <div *ngFor="let imageUrl of imageUrls; let i = index">
+        <img [src]="imageUrl" alt="Accomodation Image" />
+        <button mat-icon-button (click)="removeImageUrl(i)">
+          -
+          <!-- <mat-icon>delete</mat-icon> -->
+        </button>
       </div>
+    </div>
+  </div>
+
+  <input matInput placeholder="Nowy URL zdjęcia" />
+  <button mat-raised-button color="primary" (click)="addImageUrl()">
+    Dodaj zdjęcie
+  </button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">
+    Dodaj obiekt
+  </button>
+</div>
+<div>
+  <h4>Rooms</h4>
+  <button mat-button (click)="addRoom()">Add room</button>
+  <button mat-button (click)="clearRooms()">Clear rooms</button>
+  <form [formGroup]="roomForm">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Capacity</mat-label>
+          <input matInput formControlName="capacity" />
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Price per night</mat-label>
+          <input matInput formControlName="pricePerNight" />
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state">
+          <mat-select-trigger>
+            {{ roomForm.get("state")?.value! || "" }}
+          </mat-select-trigger>
+          <mat-option *ngFor="let st of states" [value]="st">{{
+            st
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Facilities</mat-label>
+        <mat-select formControlName="facilities" multiple>
+          <mat-select-trigger>
+            {{ roomForm.get("facilities")?.value! || "" }}
+          </mat-select-trigger>
+          <mat-option *ngFor="let fac of possibleFacilities; track fac" [value]="fac">{{
+            fac
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div *ngIf="rooms.length > 0">
+  <table mat-table [dataSource]="rooms" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+   -->
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef>Capacity</th>
+      <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="pricePerNight">
+      <th mat-header-cell *matHeaderCellDef>Price per night</th>
+      <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="facilities">
+      <th mat-header-cell *matHeaderCellDef>Facilities</th>
+      <td mat-cell *matCellDef="let element">{{getFacilities(element.facilities)}}</td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element"><button (click)="removeRoom(element)">Usuń</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

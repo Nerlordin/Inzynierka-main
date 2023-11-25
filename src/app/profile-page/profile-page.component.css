@@ -17,4 +17,53 @@
 }
 .button{
     width: 80%; 
-  }
+  }/* Globalne style */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style dla dialogu */
+
+.dialog-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-box {
+  background-color: #fff;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #999;
+}
+
+.close-button:hover {
+  color: #000;
+}
+.dialog-overlay {
+  display: none;
+  /* ... inne style ... */
+}
+
+.show-dialog {
+  display: block !important;
+  /* ... inne style, np. opacity, transform ... */
+}

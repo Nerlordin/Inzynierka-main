@@ -19,7 +19,7 @@ export class ReservationService {
     return this.http.put<Reservation[]>(`${API_URL}/${id}/cancellation`,httpOptions);
   }
   getReservationsToAccept() {
-    return this.http.get<Reservation[]>(`${API_URL}/confirmation`,httpOptions);
+    return this.http.get<Reservation[]>(`${API_URL}/offers`,httpOptions);
   }
   constructor(private http: HttpClient) {}
   getReservations() : Observable<Reservation[]>{

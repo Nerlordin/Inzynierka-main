@@ -1,1 +1,74 @@
-<app-review-component></app-review-component>
+
+<div class="container">
+  <div class="column">
+    <form (ngSubmit)="submitReview()">
+      <div>
+        <mat-form-field style="width: 100%;"  >
+          <mat-label>Review</mat-label>
+          <textarea  matInput [formControl]="content" name="text"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Rating</mat-label>
+          <mat-select [formControl]="rating" name="rating">
+            <mat-option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">{{
+              i
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button type="submit" mat-raised-button color="primary">Add</button>
+    </form>
+    
+  </div>
+  <div class="column2">
+    <ng-container *ngFor="let opinion of reviews">
+  
+      <mat-card class="review">
+        <mat-card-content>
+          <div class="rating">
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+              <i class="material-icons">{{ i <= opinion.rating ? 'star' : 'star_border' }}</i>
+            </ng-container>
+          </div>
+          <strong>{{ opinion.author }}</strong>: {{ opinion.content }}
+        </mat-card-content>
+      </mat-card>
+  </ng-container>
+  </div>
+</div>
+
+<!-- <mat-grid-list cols="1" rowHeight="10:1">
+  <mat-grid-tile>
+    <form (ngSubmit)="submitReview()">
+    
+      <mat-form-field>
+        <mat-label>Review</mat-label>
+        <textarea matInput [formControl]="content" name="text"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Rating</mat-label>
+        <mat-select [formControl]="rating" name="rating">
+          <mat-option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">{{ i }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary">Add</button>
+    </form>
+  </mat-grid-tile>
+</mat-grid-list>
+  <mat-grid-list cols="6" rowHeight="5:1">
+  <mat-grid-tile>
+  
+</mat-grid-tile>
+
+</mat-grid-list>
+
+
+<mat-paginator
+  [length]="reviews.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[3, 6, 9]"
+  (page)="onPageChange($event)"
+></mat-paginator> -->

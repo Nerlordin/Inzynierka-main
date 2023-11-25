@@ -57,8 +57,7 @@ export class LoginPageComponent {
         this.storageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        // this.roles = this.storageService.getUser().roles;
-        this.router.navigateByUrl("/profile");
+        this.router.navigateByUrl("/places");
       },
       error: err => {
         this.errorMessage = err.error.message;

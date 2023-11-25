@@ -6,6 +6,5 @@ export interface CreatePlaceRequest{
     description: string;
     address: Address;
     category:string;
-    userId:number;
     rooms:RoomDTO[];
 }

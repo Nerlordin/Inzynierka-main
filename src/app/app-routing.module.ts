@@ -22,6 +22,8 @@ import { AccomodationCreateComponent } from './accomodation-create/accomodation-
 import { RoomCreateComponent } from './room-create/room-create.component';
 import { RoomSelectionComponent } from './room-selection/room-selection.component';
 import { CreatePlaceComponent } from './create-place/create-place.component';
+import { MyOffersComponent } from './my-offers/my-offers.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 const routes: Routes = [
 
@@ -30,22 +32,21 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'accomodation', component: AccomodationPageComponent },
-  { path: 'reviews', component: ReviewPageComponent, canActivate:[authguardGuard] },
-  { path: '', component: MainPageComponent, pathMatch: 'full' },
-  { path: 'reservations', component: MyReservationsComponent},
+  // { path: '', component: MainPageComponent, pathMatch: 'full', canActivate:[authguardGuard] },
   { path: 'reservations/edit', component: EditReservationComponent},
   { path: 'accomodation/edit', component: EditAccomodationComponent},
   { path: 'accomodation/form', component: AccomodationFormComponent},
   { path: 'accomodation/create', component: AccomodationCreateComponent},
   { path: 'room/create', component:RoomCreateComponent},
 
-
   { path: 'profile', component: ProfilePageComponent,canActivate:[authguardGuard]},
   { path: 'reservations', component: MyReservationsComponent, canActivate:[authguardGuard]},
+  { path: 'offers', component: MyOffersComponent, canActivate:[authguardGuard]},
   { path: 'places', component: PlacesComponent,canActivate:[authguardGuard]},
   { path: 'places/my', component: MyPlacesComponent,canActivate:[authguardGuard]},
   { path: 'places/:id', component: PlaceDetailsComponent, canActivate:[authguardGuard]},
-  { path: 'places/reviews/:id', component: ReviewPageComponent, canActivate:[authguardGuard]},
+  { path: 'create/places', component: CreatePlaceComponent, canActivate:[authguardGuard]},
+  { path: 'places/:id/reviews', component: ReviewPageComponent, canActivate:[authguardGuard]},
   { path: 'rooms', component: RoomsComponent, canActivate:[authguardGuard]},
   { path: 'rooms/:id', component: RoomDetailsComponent, canActivate:[authguardGuard]}
 

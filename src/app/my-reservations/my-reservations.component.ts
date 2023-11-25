@@ -39,49 +39,30 @@ export class MyReservationsComponent {
   displayedColumns: string[] = ['id', 'placeId', 'checkIn', 'checkOut', 'state','value','actions'];
   constructor(private reservationService: ReservationService){
     this.state.valueChanges.subscribe(value => {
-      this.selectReservations();
       if(value !=='ALL' && value !== ''){
-        this.selectedReservations = this.selectedReservations.filter(reservation => reservation.state ==value)
+        this.selectedReservations = this.reservations.filter(reservation => reservation.state == value)
       }
-    })
+      else{
+        this.selectedReservations = this.reservations;
+      }
+    });
   }
   state = new FormControl('');
 
   possibleStates: string[] = ['ALL','CANCELLED','CONFIRMED','WAITING'];
   reservations: Reservation[] =[];
-  reservationsToAccept: Reservation[] =[];
   selectedReservations: Reservation[] =[];
-  myObjects = false;
 
 
-  selectReservations() {
-    if(this.myObjects == true){
-      this.selectedReservations = this.reservationsToAccept;
-    }
-    if(this.myObjects == false){
-      this.selectedReservations = this.reservations;
-    }
-
-  }
+ 
   canConfirm(reservation: Reservation) {
-    return reservation.state == 'WAITING' && this.myObjects == true;
+    return reservation.state == 'WAITING';
   }
   canCancel(reservation: Reservation) {
     return reservation.state !== 'CANCELLED' 
   }
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex;
-  }
-
-  reserved() {
-   
-    this.myObjects = false;
-    this.selectReservations();
-  }
-  toAccept(){
-    this.myObjects = true;
-    this.selectReservations();
-
   }
   cancel(id: number) {
     this.reservationService.cancel(id)
@@ -100,11 +81,9 @@ export class MyReservationsComponent {
   }
   ngOnInit() {
     let reservations = this.reservationService.getReservations();
-    let reservationsToAccept = this.reservationService.getReservationsToAccept();
-    forkJoin([reservations, reservationsToAccept]).subscribe(results => {
+    forkJoin([reservations]).subscribe(results => {
       this.reservations = results[0];
-      this.reservationsToAccept = results[1];
-      this.selectReservations();
+      this.selectedReservations = results[0];
     });
   }
   deleteReservation(opinion: any) {

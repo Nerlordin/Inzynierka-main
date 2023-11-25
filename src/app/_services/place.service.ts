@@ -13,41 +13,47 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class PlaceService {
-  addPlace(place: CreatePlaceRequest) {
-    this.http.post(API_URL,place).subscribe(res => res);
+  generateReport(placeId: number, from: Date, to: Date) {
+    return this.http.post('http://localhost:9990/reports', { placeId: placeId, from: from.toISOString(), to: to.toISOString() });
   }
-  constructor(private http: HttpClient) {}
-  getPlaces(filter: SearchPlaceFilter ) : Observable<Place[]>{
+  addPlace(place: CreatePlaceRequest) {
+    return this.http.post(API_URL, place);
+  }
+  constructor(private http: HttpClient) { }
+  getPlaces(filter: SearchPlaceFilter): Observable<Place[]> {
     let queryParams = new HttpParams();
-    if(filter.capacity != 0){
-      queryParams = queryParams.append("capacity",filter.capacity);
+    if (filter.capacity != 0) {
+      queryParams = queryParams.append("capacity", filter.capacity);
     }
-    if(filter.city != ''){
-      queryParams = queryParams.append("city",filter.city);
+    if (filter.city != '') {
+      queryParams = queryParams.append("city", filter.city);
     }
-    if(filter.street != ''){
-      queryParams = queryParams.append("street",filter.street);
+    if (filter.street != '') {
+      queryParams = queryParams.append("street", filter.street);
     }
-    if(filter.category != ''){
-      queryParams = queryParams.append("category",filter.category);
+    if (filter.voivodeship != '') {
+      queryParams = queryParams.append("voivodeship", filter.voivodeship);
     }
-    if(filter.pricePerNight != 0){
-      queryParams = queryParams.append("pricePerNight",filter.pricePerNight);
+    if (filter.category != '') {
+      queryParams = queryParams.append("category", filter.category);
     }
-    if(filter.from != null){
-      queryParams = queryParams.append("from",filter.from.toISOString());
+    if (filter.pricePerNight != 0) {
+      queryParams = queryParams.append("pricePerNight", filter.pricePerNight);
     }
-    if(filter.to != null){
-      queryParams = queryParams.append("to",filter.to.toISOString());
+    if (filter.from != null) {
+      queryParams = queryParams.append("from", filter.from.toISOString());
     }
-    return this.http.get<Place[]>(`${API_URL}/filters`,{params:queryParams});
+    if (filter.to != null) {
+      queryParams = queryParams.append("to", filter.to.toISOString());
+    }
+    return this.http.get<Place[]>(`${API_URL}/filters`, { params: queryParams });
   }
 
-  getMyPlaces() : Observable<Place[]>{
-    return this.http.get<Place[]>(`${API_URL}/my`,httpOptions);
+  getMyPlaces(): Observable<Place[]> {
+    return this.http.get<Place[]>(`${API_URL}/my`, httpOptions);
   }
   getPlaceId(id: number): Observable<Place> {
-    return this.http.get<Place>(`${API_URL}/${id}`,httpOptions);
+    return this.http.get<Place>(`${API_URL}/${id}`, httpOptions);
   }
 
 }

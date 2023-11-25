@@ -5,15 +5,16 @@
       <ul>
       <span>Booking App</span>
       <div class="example-button-row">
-        <a  routerLink="/"> <button mat-button color="primary" *ngIf="isLogged()">Strona główna</button> </a>
-        <a routerLink="/profile"><button mat-button color="primary" *ngIf="isLogged()">Mój profil</button></a>
+        <a  routerLink="/"> <button mat-button color="primary" *ngIf="isLogged()">Home</button> </a>
+        <a routerLink="/profile"><button mat-button color="primary" *ngIf="isLogged()">Profile</button></a>
         <!-- <a routerLink="/rooms"><button mat-button color="primary">Pokoje</button></a> -->
-        <a routerLink="/places"><button mat-button color="primary" *ngIf="isLogged()">Wyszukaj nocleg</button></a>
-        <a routerLink="/places/my"><button mat-button color="primary" *ngIf="isLogged()">Moje obiekty</button></a>
-        <a routerLink="/reservations"><button mat-button color="primary" *ngIf="isLogged()">Moje rezerwacje</button></a>
-        <a routerLink="/register"><button mat-button color="primary" *ngIf="!isLogged()">Rejestracja</button></a>
-        <a routerLink="/login"><button mat-button color="primary" *ngIf="!isLogged()">Logowanie</button></a>
-        <a routerLink="/login" routerLinkActive="active"><button *ngIf="isLogged()" (click)="logout()" mat-button color="primary" >Wyloguj się</button></a>
+        <a routerLink="/places"><button mat-button color="primary" *ngIf="isLogged()">Search places</button></a>
+        <a routerLink="/places/my"><button mat-button color="primary" *ngIf="isLogged()">My places</button></a>
+        <a routerLink="/reservations"><button mat-button color="primary" *ngIf="isLogged()">Bookings</button></a>
+        <a routerLink="/offers"><button mat-button color="primary" *ngIf="isLogged()">My offers</button></a>
+        <a routerLink="/register"><button mat-button color="primary" *ngIf="!isLogged()">Register</button></a>
+        <a routerLink="/login"><button mat-button color="primary" *ngIf="!isLogged()">Login</button></a>
+        <a routerLink="/login" routerLinkActive="active"><button *ngIf="isLogged()" (click)="logout()" mat-button color="primary" >Logout</button></a>
       </div> 
       </ul>
     </mat-toolbar>

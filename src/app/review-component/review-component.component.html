@@ -1,10 +1,4 @@
-<mat-grid-list cols="1" rowHeight="8:1">
-  <mat-grid-tile [rowspan]="4">
-    <div class="reviewed">
-      <app-accomodation-card></app-accomodation-card>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile>
+<!-- <mat-grid-list cols="1" rowHeight="8:1">
     <form (ngSubmit)="submitOpinion()">
       <mat-form-field>
         <mat-label>Twoja ocena</mat-label>
@@ -13,9 +7,6 @@
         </mat-select>
       </mat-form-field>
     
-      <mat-form-field>
-        <mat-label>Twoje Imie i nazwisko</mat-label>
-        <input matInput [(ngModel)]="newOpinion.author" name="author">
       </mat-form-field>
     
       <mat-form-field>
@@ -25,7 +16,6 @@
     
       <button type="submit" mat-raised-button color="primary">Dodaj opinie</button>
     </form>
-  </mat-grid-tile>
   <ng-container *ngFor="let opinion of pagedOpinions">
     <mat-grid-tile>
       <mat-card class="review">
@@ -49,4 +39,4 @@
   [pageSize]="pageSize"
   [pageSizeOptions]="[3, 6, 9]"
   (page)="onPageChange($event)"
-></mat-paginator>
+></mat-paginator> -->

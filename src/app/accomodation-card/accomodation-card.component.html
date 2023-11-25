@@ -5,15 +5,18 @@
       <mat-card-title>{{place?.name}}</mat-card-title>
       <mat-card-subtitle>{{place?.description}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="" alt="Accommodation Image">
+    <!-- <img mat-card-image [src]="" alt="Accommodation Image"> -->
     <mat-card-content>
       <p>
+      <p>Liczba pokoi: {{place!.rooms.length!}}
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <a routerLink="/places/{{place?.id}}"><button mat-raised-button color="primary">Sprawdz szczegoly</button></a>
-      <a routerLink="/places/reviews/{{place?.id}}"><button mat-raised-button color="primary">Sprawdz opinie</button></a>
+      <a routerLink="/places/{{place?.id}}"><button mat-raised-button color="primary">Szczegóły</button></a>
+      <a routerLink="/places/reviews/{{place?.id}}"><button mat-raised-button color="primary">Opinie</button></a>
     </mat-card-actions>
   </mat-card>
+  <mat-divider></mat-divider>
+
 
 

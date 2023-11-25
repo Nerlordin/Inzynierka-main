@@ -1,6 +1,9 @@
 export class SearchPlaceFilter{
 
-    constructor(capacity: number,pricePerNight: number,
+    constructor(
+        capacity: number,
+        pricePerNight: number,
+        voivodeship:string,
         street:string,
         city:string,
         from: Date | null,
@@ -13,6 +16,7 @@ export class SearchPlaceFilter{
             this.to = to;
             this.capacity = capacity;
             this.from = from;
+            this.voivodeship = voivodeship;
         }
         public  getFrom(): Date | null{
             return this.from;
@@ -40,6 +44,7 @@ export class SearchPlaceFilter{
    pricePerNight: number;
 
   capacity: number;
+  voivodeship:string;
   street:string;
   city:string;
   from: Date | null;
