@@ -90,11 +90,17 @@ mat-card-image {
   display: flex;
   justify-content: center;
 }
-
+.image-container {
+  display: inline-block; 
+  margin-right: 10px; 
+}
 .example-button-row {
   margin: 10px;
 }
-
+.custom-font {
+  font-size: 24px; 
+  margin: 10px;
+}
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .example-card {

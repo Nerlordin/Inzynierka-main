@@ -55,7 +55,7 @@ export class MyReservationsComponent {
   constructor() {
    
     this.selectedRooms = [
-      {placeID: 1,roomID: 2, liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze' }
+      {placeID: 1,roomID: 2, capacity: 2, name: 'Pokój 2', state:'', pricepernight: 150, facilities: 'Pokój z widokiem na morze' }
     ];
   }
 }

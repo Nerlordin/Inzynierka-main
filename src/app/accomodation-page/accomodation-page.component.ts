@@ -8,21 +8,22 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ReviewComponentComponent } from '../review-component/review-component.component';
 import { MyReservationsComponent} from '../my-reservations/my-reservations.component';
-
+import { ActivatedRoute } from '@angular/router';
 
 export interface AccomodationElement {
   placeID: number;
   roomID: number;
-  liczba_osob: number;
+  capacity: number;
   name: string;
-  cena: number;
-  liczba_dostepnych: number;
-  description: string;
+  state: string;
+  pricepernight: number;
+  facilities: string;
+  
 }
 const ELEMENT_DATA: AccomodationElement[] = [
-  {placeID: 1, roomID:1, liczba_osob: 1, name: 'Pokój 1', cena: 100, liczba_dostepnych: 3, description: 'Standardowy pokój jednoosobowy'},
-  {placeID: 1, roomID:2, liczba_osob: 2, name: 'Pokój 2', cena: 150, liczba_dostepnych: 3, description: 'Pokój z widokiem na morze'},
-  {placeID: 1, roomID:3, liczba_osob: 3, name: 'Pokój 3', cena: 200, liczba_dostepnych: 3, description: 'Apartament rodzinny'}
+  {placeID: 1, roomID:1, capacity: 1, name: 'Pokój 1',state: 'state1', pricepernight: 100, facilities: '3'},
+  {placeID: 2, roomID:2, capacity: 2, name: 'Pokój 2',state: 'state2', pricepernight: 150, facilities: '3'},
+  {placeID: 3, roomID:3, capacity: 3, name: 'Pokój 3',state: 'state3', pricepernight: 200, facilities: '3'}
 ];
 
 @Component({
@@ -35,28 +36,60 @@ const ELEMENT_DATA: AccomodationElement[] = [
 
 
 export class AccomodationPageComponent {
-  @Input() imageUrl: string ='https://material.angular.io/assets/img/examples/shiba2.jpg';
-  @Input() smallImage: string ='https://material.angular.io/assets/img/examples/shiba1.jpg';
-  @Input() image2: string ='https://via.placeholder.com/300x200';
   @Input() price: number = 100;
   @Input() address: string = 'adres';
   @Input() description: string = 'przykladowy opis';
   @Input() rating: number = 7.5;
-  room: AccomodationElement = {placeID:1,roomID:1, name: '', liczba_osob: 0, cena: 0, liczba_dostepnych: 0, description: '' };
-  currentImage: string = this.imageUrl;
+  @Input() placeID: number = 1;
+  room: AccomodationElement = {placeID:1,roomID:1, capacity: 0, name: '', state: '', pricepernight: 0, facilities: ''};
+  
+ 
   selectedRooms: AccomodationElement[] = [];
-  displayedColumns: string[] = ['liczba_osob', 'name', 'cena','liczba_dostepnych', 'description'];
+  displayedColumns: string[] = ['capacity', 'name', 'pricepernight','facilities'];
   dataSource = ELEMENT_DATA;
   form!: FormGroup;
-
-  constructor(private reservationService: MyReservationsComponent, private fb: FormBuilder) { }
+  imageArray: string[] = [
+    'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    'https://material.angular.io/assets/img/examples/shiba1.jpg',
+    'https://via.placeholder.com/300x200',
+    'https://placehold.co/600x400'
+  ];
+  imageArray2: string[] = [
+    'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    'https://material.angular.io/assets/img/examples/shiba1.jpg',
+    'https://via.placeholder.com/300x200',
+    'https://placehold.co/600x600'
+  ];
+  imageArray3: string[] = [
+    'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    'https://material.angular.io/assets/img/examples/shiba1.jpg',
+    'https://via.placeholder.com/300x200',
+    'https://placehold.co/600x500'
+  ];
+  accommodations: any[]= [
+    {placeID:1,capacity:0,name:'1',state: '2',pricepernight:150,facilities:'kino, basen', images: this.imageArray},
+    {placeID:2,capacity:0,name:'2',state: '2',pricepernight:150,facilities:'', images: this.imageArray2},
+    {placeID:3,capacity:0,name:'3',state: '2',pricepernight:150,facilities:'', images: this.imageArray3}
+  ];
+  
+  currentImage: string = this.imageArray.length > 0 ? this.imageArray[0] : '';
+  constructor(private route: ActivatedRoute,private reservationService: MyReservationsComponent, private fb: FormBuilder) { }
   ngOnInit() {
-    // Initialize the form with validators if needed
+    this.route.params.subscribe(params => {
+      const placeID = params['placeID'];
+      this.placeID = placeID;});
+      console.log(this.placeID);
+    
+      
     this.form = this.fb.group({
       roomID: ['', Validators.required],
       placeID: ['', Validators.required],
      
+
     });
+  }
+  isPlaceIDMatch(accommodationPlaceID: number): boolean {
+    return accommodationPlaceID === this.placeID;
   }
   setCurrentImage(image: string) {
     this.currentImage = image;
@@ -66,13 +99,8 @@ export class AccomodationPageComponent {
   submitOrder() {
     console.log("Metoda submitOrder() została wywołana.");
   if (this.form.valid && this.selectedRooms.length > 0) {
-  
     const roomID = this.selectedRooms[0].roomID;
-
-   
-    this.form.patchValue({ roomID });
-
-   
+    this.form.patchValue({ roomID });   
     const placeID = this.form.get('placeID')!.value;
 
     

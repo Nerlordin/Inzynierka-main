@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'podstrona2', component: Podstrona2Component },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'accomodation', component: AccomodationPageComponent },
+  { path: 'accomodation/:placeID', component: AccomodationPageComponent },
   { path: 'review', component: ReviewPageComponent },
   { path: '', component: MainPageComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfilePageComponent},

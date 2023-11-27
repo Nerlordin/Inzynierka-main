@@ -1,23 +1,29 @@
-
 <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title></mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ name }}</mat-card-title>
+    <mat-card-subtitle>{{ building }}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="card-content-container">
     <img mat-card-image [src]="imageUrl" alt="Accommodation Image">
     <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-      <p>Cena</p>
+      <div>
+        <div class="custom-font">{{ description }}</div>
+        <div class="custom-font">{{ voivodeship }}</div>
+        <div class="custom-font">{{ country }}</div>
+        <div class="custom-font">{{ category }}</div>    
+      </div>
     </mat-card-content>
-    <mat-card-actions>
-      <a routerLink="accomodation"><button mat-raised-button color="primary">Sprawdz szczegoly</button></a>
-    </mat-card-actions>   
-  </mat-card>
-  
-
-  
+    <div class="rating-container">
+      <div class="stars">
+        
+        <i *ngFor="let _ of getFullStars()" class="fas fa-star"></i>
+        <i *ngFor="let _ of getEmptyStars()" class="far fa-star"></i>
+      </div>
+      <div class="rating-value">{{ rating }}</div>
+    </div>
+  </div>
+  <mat-card-actions>
+    <a [routerLink]="'accomodation/' + placeID"><button mat-raised-button color="primary">Sprawdź szczegóły</button></a>
+  </mat-card-actions>
+</mat-card>

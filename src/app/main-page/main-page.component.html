@@ -1,12 +1,31 @@
 <app-search></app-search>
 <div class="container">
-    <app-filtry></app-filtry>
-    <div class="card-container">
-      <app-accomodation-card></app-accomodation-card>
-      <mat-divider></mat-divider>
-      <app-accomodation-card [imageUrl]="'https://material.angular.io/assets/img/examples/shiba2.jpg'"></app-accomodation-card>
-      <mat-divider></mat-divider>
-      <app-accomodation-card [imageUrl]="'https://material.angular.io/assets/img/examples/shiba2.jpg'"></app-accomodation-card>
+  <app-filtry></app-filtry>
+  <div class="card-container">
+    <div *ngFor="let accommodation of accommodations">
+      <app-accomodation-card
+        [imageUrl]="accommodation.imageUrl"
+        [name]="accommodation.name"
+        [description]="accommodation.description"
+        [city]="accommodation.city"
+        [building]="accommodation.building"
+        [street]="accommodation.street"
+        [voivodeship]="accommodation.voivodeship"
+        [country]="accommodation.country"
+        [category]="accommodation.category"
+        [rating]="accommodation.rating"
+        [placeID]="accommodation.placeID"
+      ></app-accomodation-card>
+      
+     
     </div>
+    <mat-paginator
+
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[3, 6, 9]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
   </div>
+</div>
+
   

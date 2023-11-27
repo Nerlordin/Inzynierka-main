@@ -23,30 +23,36 @@ export class ReviewComponentComponent {
   
   @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
   newOpinion = {
+    placeID:0,
     rating: 1,
+    imageUrl: '',
     author: '',
     text: ''
   };
   opinions: any[] = [
+   
     {
+      placeID:1,
       rating: 5,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
       author: 'John Doe',
       text: 'Great place to stay. I highly recommend it!',
     },
     {
+      placeID: 2,
       rating: 4,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
       author: 'Alice Smith',
       text: 'The accommodations were clean and comfortable.',
     },
     {
+      placeID:3,
       rating: 5,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
       author: 'Bob Johnson',
       text: 'I had a wonderful experience at this location.',
     },
-    {
+    { placeID:4,
       rating: 3,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
       author: 'Emma Wilson',
@@ -76,7 +82,9 @@ export class ReviewComponentComponent {
 
    
     this.newOpinion = {
+      placeID:1,
       rating: 1,
+      imageUrl: '',
       author: '',
       text: ''
     };

@@ -11,7 +11,7 @@ mat-grid-list{
     float: right; 
     margin-right: 100px;
     margin-top: 100px;
- 
+  
   }
   
   .example-header-image {
@@ -19,11 +19,7 @@ mat-grid-list{
     background-size: cover;
     
   }
-  .reviewed {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  
   .review {
     width: 85%;
     height: 150px;

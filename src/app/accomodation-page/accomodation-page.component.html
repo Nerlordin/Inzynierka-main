@@ -12,19 +12,25 @@
         </div>
       </div>
       <div class="info">
-        <mat-card-content>
-          <p class="cena">Cena: {{ price }}</p>
-          <p class="adres">Adres: {{ address }}</p>
-        </mat-card-content>
-        <mat-card-content>
-          <p class="opis">Opis: {{ description }}</p>
-        </mat-card-content>
+        
+          <mat-card-content *ngFor="let accommodation of accommodations">
+            <div *ngIf="accommodation.placeID == placeID">
+              <div class="custom-font">Nazwa: {{ accommodation.name }}</div>
+              <div class="custom-font">Stan: {{ accommodation.state }}</div>
+              <div class="custom-font">Cena za noc: {{ accommodation.pricepernight }}</div>
+              <div class="custom-font">Atrakcje w pobliżu: {{ accommodation.facilities }}</div>    
+            </div>
+          </mat-card-content>
+        
+        
       </div>
     </div>
-    <div class="gallery">
-      <img [src]="imageUrl" alt="Image 1" (click)="setCurrentImage(imageUrl)">
-      <img [src]="smallImage" alt="Image 2" (click)="setCurrentImage(smallImage)">
-      <img [src]="image2" alt="Image 3" (click)="setCurrentImage(image2)">
+    <div class="gallery" *ngFor="let accommodation of accommodations">
+      <div *ngIf="accommodation.placeID == placeID">  
+        <div class="image-container" *ngFor="let image of accommodation.images" >
+          <img [src]="image" alt="Image" (click)="setCurrentImage(image)">
+        </div>
+      </div>
     </div>
     
   </mat-card>
@@ -55,11 +61,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let element of dataSource">
-              <td>{{ element.liczba_osob }}</td>
+              <td>{{ element.capacity }}</td>
               <td>{{ element.name }}</td>
-              <td>{{ element.cena }}</td>
-              <td>{{ element.liczba_dostepnych }}</td>
-              <td>{{ element.description }}</td>
+              <td>{{ element.pricepernight }}</td>
+              <td>{{ element.facilities }}</td>
               <td>
                 <input type="checkbox" (change)="toggleRoomSelection(element)" [checked]="isRoomSelected(element)">
               </td>

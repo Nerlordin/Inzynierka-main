@@ -1,9 +1,4 @@
 <mat-grid-list cols="1" rowHeight="8:1">
-  <mat-grid-tile [rowspan]="4">
-    <div class="reviewed">
-      <app-accomodation-card [imageUrl]="imageUrl"></app-accomodation-card>
-    </div>
-  </mat-grid-tile>
   <mat-grid-tile>
     <form (ngSubmit)="submitOpinion()">
       <mat-form-field>
@@ -28,17 +23,24 @@
   </mat-grid-tile>
   <ng-container *ngFor="let opinion of pagedOpinions">
     <mat-grid-tile>
+     
       <mat-card class="review">
+       
         <mat-card-content>
+          
           <div class="rating">
+            
             <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
               <i class="material-icons">{{ i <= opinion.rating ? 'star' : 'star_border' }}</i>
             </ng-container>
           </div>
           <img [src]="opinion.imageUrl" alt="{{ opinion.author }}" class="comment-avatar">
           {{ opinion.image }}<strong>{{ opinion.author }}</strong>: {{ opinion.text }}
+        
         </mat-card-content>
+      
       </mat-card>
+    
     </mat-grid-tile>
   </ng-container>
 </mat-grid-list>

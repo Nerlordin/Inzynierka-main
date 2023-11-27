@@ -5,7 +5,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
 import { Podstrona1Component } from './podstrona1/podstrona1.component';
 import { Podstrona2Component } from './podstrona2/podstrona2.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -42,12 +41,13 @@ import { RoomSelectionComponent } from './room-selection/room-selection.componen
     AppComponent,
     Podstrona1Component,
     Podstrona2Component,
-    MainPageComponent,
+    
     FooterComponent,
     RoomSelectionComponent,
    
   ],
   imports: [
+    MainPageComponent,
     RoomCreateComponent,
     AccomodationFormComponent,
     MyReservationsComponent,
