@@ -32,7 +32,7 @@ export class GenerateReportDialogComponent {
   generateReport() {
     this.placeService
       .generateReport(this.data.placeId, this.range.get('start')?.value!, this.range.get('end')?.value!)
-      .subscribe((res: Object) =>this.saveFile());
+      // .subscribe((res: Object) =>this.saveFile());
   }
 
   saveFile(blobData: Blob) {

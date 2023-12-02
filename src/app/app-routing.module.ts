@@ -24,6 +24,7 @@ import { RoomSelectionComponent } from './room-selection/room-selection.componen
 import { CreatePlaceComponent } from './create-place/create-place.component';
 import { MyOffersComponent } from './my-offers/my-offers.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { SearchPlaceDetailsComponent } from './search-place-details/search-place-details.component';
 
 const routes: Routes = [
 
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'places', component: PlacesComponent,canActivate:[authguardGuard]},
   { path: 'places/my', component: MyPlacesComponent,canActivate:[authguardGuard]},
   { path: 'places/:id', component: PlaceDetailsComponent, canActivate:[authguardGuard]},
+  { path: 'search/places/:id', component: SearchPlaceDetailsComponent, canActivate:[authguardGuard]},
   { path: 'create/places', component: CreatePlaceComponent, canActivate:[authguardGuard]},
   { path: 'places/:id/reviews', component: ReviewPageComponent, canActivate:[authguardGuard]},
   { path: 'rooms', component: RoomsComponent, canActivate:[authguardGuard]},

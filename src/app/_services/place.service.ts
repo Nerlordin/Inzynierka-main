@@ -13,6 +13,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class PlaceService {
+  getPlaceDetails(id: number) {
+    return this.http.get<Place>(`${API_URL}/${id}/details`, httpOptions);
+  }
   generateReport(placeId: number, from: Date, to: Date) {
     return this.http.post('http://localhost:9990/reports', { placeId: placeId, from: from.toISOString(), to: to.toISOString() });
   }
@@ -41,10 +44,10 @@ export class PlaceService {
       queryParams = queryParams.append("pricePerNight", filter.pricePerNight);
     }
     if (filter.from != null) {
-      queryParams = queryParams.append("from", filter.from.toISOString());
+      queryParams = queryParams.append("from", filter.from);
     }
     if (filter.to != null) {
-      queryParams = queryParams.append("to", filter.to.toISOString());
+      queryParams = queryParams.append("to", filter.to);
     }
     return this.http.get<Place[]>(`${API_URL}/filters`, { params: queryParams });
   }

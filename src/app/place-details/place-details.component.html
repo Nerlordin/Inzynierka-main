@@ -1,70 +1,64 @@
-
 <div class="card">
-      <div class="card-content">
-        <div class="image-wrapper">
-          <img
-            mat-card-image
-            [src]="currentImage"
-            alt="Hotel Image"
-          >
-          <div class="rating-kwadrat">
-          </div>
-        </div>
-        <div class="info">
-            <p class="opis">Name: {{ place?.name }}</p>
-            <p class="opis">Description: {{ place?.description }}</p>
-            <p class="cena">Category: {{ place?.placeCategory }}</p>
-            <p class="adres">City: {{ place?.address?.city}}</p>
-            <p class="adres">Street: {{ place?.address?.street}} {{ place?.address?.building}}</p>
-        </div>
-      </div>
-      <div class="gallery">
-        <!-- <img [src]="imageUrl" alt="Image 1" (click)="setCurrentImage(imageUrl)"> -->
-        <!-- <img [src]="smallImage" alt="Image 2" (click)="setCurrentImage(smallImage)"> -->
-        <!-- <img [src]="image2" alt="Image 3" (click)="setCurrentImage(image2)"> -->
-      </div>
-      
+  <div class="card-content">
+    <div class="image-wrapper">
+      <img mat-card-image [src]="" alt="Hotel Image" />
+      <div class="rating-kwadrat"></div>
+    </div>
+    <div class="info">
+      <p class="opis">Name: {{ place?.name }}</p>
+      <p class="opis">Description: {{ place?.description }}</p>
+      <p class="cena">Category: {{ place?.placeCategory }}</p>
+      <p class="adres">City: {{ place?.address?.city }}</p>
+      <p class="adres">
+        Street: {{ place?.address?.street }} {{ place?.address?.building }}
+      </p>
+    </div>
   </div>
-  <div class="example-button-row">
-    <button mat-button color="primary"(click)="showReviews()">Reviews</button>
-    <button mat-button color="primary"(click)="reservationCreate()">Reserve</button>
-    
-     <!-- <a routerLink="/places/{{place?.id}}/reviews"><button mat-button color="primary">Reviews</button></a> -->
-  </div> 
-  
-  <div class="card">
-    <!-- <mat-card class="example-card2"> -->
-      <div class="card-content">
-        <!-- <mat-card-content> -->
-          <h2>Dostępne pokoje:</h2>
-          <table class="room-list">
-            <thead>
-              <tr>
-                <th>Liczba osób</th>
-                <th>Rodzaj pokoju</th>
-                <th>Cena</th>
-                <th>Liczba dostępnych pokoi</th>
-                <th>Opis</th>
-                <th>Wybierz</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let element of place?.rooms">
-                <td>{{ element.capacity }}</td>
-                <td>{{ element.name }}</td>
-                <td>{{ element.pricePerNight }}</td>
-                <td>{{ element.description }}</td>
-                <td>
-                  <!-- <input type="checkbox" (change)="toggleRoomSelection(element)" [checked]="isRoomSelected(element)"> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-      </div>
-      <div class="card-actions">
-        <div class="example-button-row">
-          <!-- <a routerLink="/accomodation/form"><button mat-raised-button color="primary" (click)="submitOrder()">Złóz zamówienie</button></a> -->
-        </div>
-      </div>
-  </div>
-  
+  <div class="gallery"></div>
+</div>
+<h2>Rooms</h2>
+<div *ngIf="place?.rooms?.length! > 0">
+  <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container> -->
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef>Capacity</th>
+      <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+    </ng-container>
+    <ng-container matColumnDef="pricePerNight">
+      <th mat-header-cell *matHeaderCellDef>Price per night</th>
+      <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+    <ng-container matColumnDef="facilities">
+      <th mat-header-cell *matHeaderCellDef>Facilities</th>
+      <td mat-cell *matCellDef="let element">
+        {{ getFacilities(element.facilities) }}
+      </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+   
+      </td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<div class="example-button-row">
+  <button mat-button color="primary" (click)="showReviews()">Reviews</button>
+</div>
+
+<!-- <a routerLink="/places/{{place?.id}}/reviews"><button mat-button color="primary">Reviews</button></a> -->

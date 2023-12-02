@@ -14,11 +14,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AccomodationCardComponent } from '../accomodation-card/accomodation-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { query } from '@angular/animations';
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
@@ -38,7 +39,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 })
 export class PlacesComponent {
 
-  constructor(private placeService: PlaceService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private placeService: PlaceService, private formBuilder: FormBuilder) { }
   maxPrice = new FormControl(0);
   capacity = new FormControl(0);
   street = new FormControl('');
@@ -49,10 +50,23 @@ export class PlacesComponent {
   ngOnInit() {
 
   }
-
-  clearFilters(){
+  getDetails(placeId: number) {
+    const queryParams = {
+      maxPrice: this.maxPrice.value!,
+      capacity: this.capacity.value!,
+      street: this.street.value!,
+      city: this.city.value!,
+      category: this.category.value!,
+      voivodeship: this.voivodeship.value!,
+      start: this.range!.get('start')!.value!.toISOString(),
+      end: this.range!.get('end')!.value!.toISOString()
+    };
+    this.router
+    .navigateByUrl(`/search/places/${placeId}?maxPrice=${queryParams.maxPrice}&street=${queryParams.street}&city=${queryParams.city}&capacity=${queryParams.capacity}&start=${queryParams.start}&end=${queryParams.end}&category=${queryParams.category}`);
+  }
+  clearFilters() {
     this.places = [];
-    
+
     this.maxPrice.reset();
   }
   range = new FormGroup({
@@ -77,17 +91,22 @@ export class PlacesComponent {
     'MAZOWIECKIE',
     'MAŁOPOLSKIE'
   ]
+  showReviews(placeId: number) {
+    this.router.navigateByUrl(`/places/${placeId}/reviews`)
+  }
+  abc="/assets/pobrane.png"
   search() {
-    
+
     {
       this.placeService.getPlaces(new SearchPlaceFilter(
         this.capacity.value!,
-        this.maxPrice.value? this.maxPrice.value : 0,
+        this.maxPrice.value ? this.maxPrice.value : 0,
         this.voivodeship.value!,
         this.street.value!,
         this.city.value!,
-        this.range.controls.start.value!,
-        this.range.controls.end.value!,
+        null,
+        this.range.controls.start.value!.toISOString(),
+        this.range.controls.end.value!.toISOString(),
         this.category.value!)).subscribe(res => this.places = res);
     }
   }

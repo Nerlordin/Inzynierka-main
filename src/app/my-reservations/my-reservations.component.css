@@ -17,11 +17,7 @@
     height: 200px;
     
   }
-  .my-reservations-heading {
-    font-size: 64px; 
-    font-weight: bold; 
-    color: #333; 
-  }
+
   button{
     width: 150px;
     display: flex;

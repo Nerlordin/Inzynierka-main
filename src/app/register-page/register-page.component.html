@@ -1,11 +1,18 @@
 <div class="register">
-<div class="kwadrat">
-<div class="container">
-    <div class="example-container">
+  <div class="kwadrat">
+    <div class="container">
+      <div class="example-container">
         <mat-form-field>
           <mat-label>Enter your email</mat-label>
-          <input matInput placeholder="pat@example.com" [formControl]="email" required>
-          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="email"
+            required
+          />
+          <mat-error *ngIf="email.invalid">{{
+            getEmailErrorMessage()
+          }}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -13,24 +20,64 @@
       <div class="example-container">
         <mat-form-field>
           <mat-label>Enter your First name</mat-label>
-          <input matInput placeholder="Your email" [formControl]="firstName" required>
-          <mat-error *ngIf="firstName.invalid">{{getUsernameErrorMessage()}}</mat-error>
+          <input
+            matInput
+            placeholder="Your email"
+            [formControl]="firstName"
+            required
+          />
+          <mat-error *ngIf="firstName.invalid">{{
+            getUsernameErrorMessage()
+          }}</mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="container">
-    <div class="example-container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Enter your last name</mat-label>
+          <input
+            matInput
+            placeholder="Your email"
+            [formControl]="lastName"
+            required
+          />
+          <mat-error *ngIf="firstName.invalid">{{
+            getUsernameErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container">
+      <div class="example-container">
         <mat-form-field>
           <mat-label>Enter your password</mat-label>
-          
-          
-          <input matInput placeholder="password" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+          <input
+            matInput
+            placeholder="password"
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+            required
+          />
+          <mat-error *ngIf="password.invalid">{{
+            getPasswordErrorMessage()
+          }}</mat-error>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
         </mat-form-field>
-            <div class="example-button-row"><a routerLink="/login"><button (click)="onSubmit()" mat-raised-button color="primary">Zarejestruj się</button></a></div>
+        <div class="example-button-row">
+          <button (click)="onSubmit()" mat-raised-button color="primary">
+            Zarejestruj się
+          </button>
+        </div>
       </div>
     </div>
   </div>

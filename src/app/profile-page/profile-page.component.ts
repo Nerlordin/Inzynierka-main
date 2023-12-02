@@ -20,14 +20,10 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatCardModule, MatButtonModule, RouterModule, MatDividerModule],
 })
 export class ProfilePageComponent {
-  @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
 
   constructor(public dialog: MatDialog, private router: Router) { }
 
   changePassword(): void {
-     
-
-    // this.router.navigateByUrl('/profile'); 
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
       autoFocus: true
     });
@@ -36,21 +32,5 @@ export class ProfilePageComponent {
       this.router.navigateByUrl('/profile'); 
       console.log('Dialog został zamknięty');
     });
-    //   this.dialog.open(ChangePasswordDialogComponent, {
-    //   width: '250px',
-    //   disableClose: true,
-    //   closeOnNavigation: true,
-    //   autoFocus: true,
-    //   position: {
-    //   'top': '0',
-    //   left: '0'
-    //   }
-    // });
-    // const dialogOverlay = document.querySelector('.dialog-overlay');
-  //   dialogOverlay?.classList.add('show-dialog')
-  
-  // function closeDialog() {
-  //   const dialogOverlay = document.querySelector('.dialog-overlay');
-  //   dialogOverlay?.classList.remove('show-dialog')
   }
 }

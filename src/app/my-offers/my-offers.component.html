@@ -1,4 +1,4 @@
-<h1 class="my-reservations-heading">Reservations</h1>
+<h1 class="my-reservations-heading">Offers</h1>
 
 <mat-form-field>
   <mat-label>State</mat-label>
@@ -20,7 +20,10 @@
     <th mat-header-cell *matHeaderCellDef>Place ID</th>
     <td mat-cell *matCellDef="let element"><a href="/places/{{element.placeId}}">{{ element.placeId }}</a></td>
   </ng-container>
-
+  <ng-container matColumnDef="roomId">
+    <th mat-header-cell *matHeaderCellDef>Room ID</th>
+    <td mat-cell *matCellDef="let element">{{ element.roomId.id }}</td>
+  </ng-container>
   <ng-container matColumnDef="checkIn">
     <th mat-header-cell *matHeaderCellDef>From</th>
     <td mat-cell *matCellDef="let element">
@@ -51,7 +54,7 @@
         (click)="confirm(element.id)"
         *ngIf="canConfirm(element)"
       >
-        Zatwierdź
+        Confirm
       </button>
       <button
         mat-button
@@ -59,7 +62,7 @@
         (click)="cancel(element.id)"
         *ngIf="canCancel(element)"
       >
-        Anuluj
+        Cancel
       </button>
     </td>
   </ng-container>

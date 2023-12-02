@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -22,15 +22,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   templateUrl: './reserve-place-dialog.component.html',
   styleUrls: ['./reserve-place-dialog.component.css'],
   standalone: true,
-  imports: [MatDatepickerModule,FormsModule, ReactiveFormsModule, MatInputModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule, MatDialogModule],
+  imports: [MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule, MatDialogModule],
 })
 export class ReservePlaceDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<ReservePlaceDialogComponent>, private reservationService: ReservationService, private fb: FormBuilder, private router: Router) {
+  constructor(public dialogRef: MatDialogRef<ReservePlaceDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: { start: Date, end: Date }
+  ) {
 
   }
+  cancel() {
+    this.dialogRef.close(false);
+  }
+  reserve() {
+    this.dialogRef.close(true);
+  }
   range = new FormGroup({
-    start: new FormControl<Date>(new Date()),
-    end: new FormControl<Date>(new Date()),
+    start: new FormControl<Date>(this.data.start),
+    end: new FormControl<Date>(this.data.end),
   });
 }

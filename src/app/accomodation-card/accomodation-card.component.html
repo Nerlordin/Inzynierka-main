@@ -12,8 +12,8 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <a routerLink="/places/{{place?.id}}"><button mat-raised-button color="primary">Szczegóły</button></a>
-      <a routerLink="/places/reviews/{{place?.id}}"><button mat-raised-button color="primary">Opinie</button></a>
+      <button (click)="getDetails(place!.id)"mat-raised-button color="primary">Details</button>
+      <a routerLink="/places/reviews/{{place?.id}}"><button mat-raised-button color="primary">Reviews</button></a>
     </mat-card-actions>
   </mat-card>
   <mat-divider></mat-divider>

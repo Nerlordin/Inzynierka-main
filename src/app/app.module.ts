@@ -50,6 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { ReservePlaceDialogComponent } from './reserve-place-dialog/reserve-place-dialog.component';
 import { GenerateReportDialogComponent } from './generate-report-dialog/generate-report-dialog.component';
+import { SearchPlaceDetailsComponent } from './search-place-details/search-place-details.component';
 
 @NgModule({
   declarations: [
@@ -58,16 +59,17 @@ import { GenerateReportDialogComponent } from './generate-report-dialog/generate
     Podstrona2Component,
     FooterComponent,
     RoomSelectionComponent,
-  
- 
+
+
     CreateRoomComponent,
     RoomsComponent,
 
 
   ],
   imports: [
+    SearchPlaceDetailsComponent,
     GenerateReportDialogComponent,
-    MatDialogModule ,
+    MatDialogModule,
     ChangePasswordDialogComponent,
     ReservePlaceDialogComponent,
     RoomDetailsComponent,
@@ -75,7 +77,7 @@ import { GenerateReportDialogComponent } from './generate-report-dialog/generate
     PlaceDetailsComponent,
     PlacesComponent,
     CreatePlaceComponent,
-    MainPageComponent,MyPlacesComponent,
+    MainPageComponent, MyPlacesComponent,
     RoomCreateComponent,
     AccomodationFormComponent,
     MyReservationsComponent,
@@ -106,10 +108,10 @@ import { GenerateReportDialogComponent } from './generate-report-dialog/generate
     AccomodationCreateComponent,
   ],
   providers: [httpInterceptorProviders],
-  
+
   // providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 
- }
+}

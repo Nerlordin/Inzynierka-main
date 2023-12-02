@@ -107,11 +107,7 @@ export class CreatePlaceComponent {
     this.rooms = this.rooms.filter(room => room.name != roomDTO.name);
   }
   public getFacilities(facilities: string[]): string {
-    console.log(facilities);
     return facilities.join();
-    //  console.log();
-    // ;.split(',')
-    // return[];
   }
   addImageUrl() {
     if (this.newImageUrl.trim() !== '') {

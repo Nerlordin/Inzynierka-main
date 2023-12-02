@@ -27,7 +27,7 @@ import { RouterModule } from '@angular/router';
 export class MyOffersComponent {
   pageSize = 3;
   currentPage = 0;
-  displayedColumns: string[] = ['id', 'placeId', 'checkIn', 'checkOut', 'state', 'value', 'actions'];
+  displayedColumns: string[] = ['id', 'placeId','roomId', 'checkIn', 'checkOut', 'state', 'value', 'actions'];
   constructor(private reservationService: ReservationService) {
     this.state.valueChanges.subscribe(value => {
       if (value !== 'ALL' && value !== '') {
@@ -53,7 +53,7 @@ export class MyOffersComponent {
   }
 
   cancel(id: number) {
-    this.reservationService.cancel(id)
+    this.reservationService.cancelOffer(id)
       .subscribe(res => {
         window.location.reload();
       });

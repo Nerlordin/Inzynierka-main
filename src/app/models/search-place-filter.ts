@@ -6,8 +6,9 @@ export class SearchPlaceFilter{
         voivodeship:string,
         street:string,
         city:string,
-        from: Date | null,
-        to:Date | null,
+        placeId:number | null ,
+        from: string,
+        to:string,
         category: string) {
             this.pricePerNight = pricePerNight;
             this.street = street;
@@ -16,14 +17,10 @@ export class SearchPlaceFilter{
             this.to = to;
             this.capacity = capacity;
             this.from = from;
+            this.placeId = placeId;
             this.voivodeship = voivodeship;
         }
-        public  getFrom(): Date | null{
-            return this.from;
-        }
-        public  getTo(): Date  | null {
-            return this.to;
-        }
+
         public  getCapacity(): number {
             return this.capacity;
         }
@@ -42,12 +39,12 @@ export class SearchPlaceFilter{
     }
  
    pricePerNight: number;
-
+placeId: number | null;
   capacity: number;
   voivodeship:string;
   street:string;
   city:string;
-  from: Date | null;
-  to:Date | null;
+  from:string;
+  to:string;
   category: string;
 }

@@ -18,9 +18,7 @@ import { AuthService } from '../_services/auth.service';
   imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatButtonModule, MatIconModule, RouterModule],
 })
 export class RegisterPageComponent {
-  constructor(protected authService: AuthService){
-
-  }
+  constructor(protected authService: AuthService){}
   hide = true;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
@@ -55,8 +53,6 @@ export class RegisterPageComponent {
       error: err => {
       }
     });
-  }else{
-console.log("Nie dzialas")
   }
   }
 }
