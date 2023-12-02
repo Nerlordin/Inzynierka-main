@@ -22,6 +22,7 @@
     </form>
   </mat-grid-tile>
   <ng-container *ngFor="let opinion of pagedOpinions">
+    <div *ngIf="opinion.placeID == placeID">
     <mat-grid-tile>
      
       <mat-card class="review">
@@ -42,6 +43,7 @@
       </mat-card>
     
     </mat-grid-tile>
+  </div>
   </ng-container>
 </mat-grid-list>
 

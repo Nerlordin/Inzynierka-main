@@ -19,9 +19,11 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatSelectModule, MatInputModule, FormsModule, MatCardModule, MatButtonModule, RouterModule, MatDividerModule, MatGridListModule, AccomodationCardComponent, MatPaginatorModule, CommonModule]
 })
 export class ReviewComponentComponent {
-  
-  
+  @Input() placeID: number = 0;
+  @Input() rating: number = 0;
   @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+  @Input() author: string = '';
+  @Input() text: string = '';
   newOpinion = {
     placeID:0,
     rating: 1,
@@ -29,7 +31,7 @@ export class ReviewComponentComponent {
     author: '',
     text: ''
   };
-  opinions: any[] = [
+  opinions = [
    
     {
       placeID:1,
@@ -39,24 +41,24 @@ export class ReviewComponentComponent {
       text: 'Great place to stay. I highly recommend it!',
     },
     {
-      placeID: 2,
+      placeID: 1,
       rating: 4,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
       author: 'Alice Smith',
       text: 'The accommodations were clean and comfortable.',
     },
     {
-      placeID:3,
+      placeID:2,
       rating: 5,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
       author: 'Bob Johnson',
       text: 'I had a wonderful experience at this location.',
     },
-    { placeID:4,
+    { placeID:2,
       rating: 3,
       imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
       author: 'Emma Wilson',
-      text: 'Good value for the price. I would stay here again.',
+      text: 'Good value for ffffffffffffffffffffthe price. I would stay here again.',
     },
     {
       rating: 5,
