@@ -24,7 +24,7 @@ import { AccomodationCardComponent } from '../accomodation-card/accomodation-car
 import { RoomDTO } from '../models/roomDTO';
 import { SearchPlaceFilter } from '../models/search-place-filter';
 import { ReservationService } from '../_services/reservation.service';
-
+import { ImageService } from '../_services/image.service';
 @Component({
   selector: 'app-place-details',
   templateUrl: './place-details.component.html',
@@ -47,15 +47,49 @@ export class PlaceDetailsComponent {
   place: Place | undefined;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router, private imageService: ImageService,
     private reservationService: ReservationService,
     private placeService: PlaceService, public dialog: MatDialog
-  ) { }
+  ) {
+    for (let i = 1; i <= 1; i++) {
+      const src = './assets/images/image' + i + '.jpg';
+      const caption = 'Image ' + i + ' caption';
+      const thumb = './assets/images/thumbs/image' + i + '.jpg';
+      const album = {
+        src: src,
+        caption: caption,
+        thumb: thumb
+      };
+      this._albums.push(album);
+    }
+  }
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imagesToShow.push(reader!.result!);
+    }, false);
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+  getImageFromService(imageUrl: string) {
+    this.imageService.getImage(imageUrl, Number(this.route.snapshot.paramMap.get('id')))
+      .subscribe(data => {
+        this.createImageFromBlob(data);
+      }, error => {
+      });
+  }
+  imagesToShow: any[] = [];
   ngOnInit(): void {
     this.getPlace();
-
+    this.getImageFromService('image1');
   }
-  displayedColumns = ['capacity', 'state', 'pricePerNight', 'name', 'facilities'];
+  _albums: any = [];
+  open(index: number): void {
+  }
+  close(): void {
+  }
+  displayedColumns = ['name', 'capacity', 'pricePerNight', 'facilities', 'state'];
 
   public getFacilities(facilities: string[]): string {
     return facilities.join();
@@ -63,7 +97,7 @@ export class PlaceDetailsComponent {
   showReviews() {
     this.router.navigateByUrl(`/places/${this.place?.id}/reviews`)
   }
-  getPlace(){
+  getPlace() {
     this.route.queryParams.subscribe(params => {
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.placeService.getPlaceDetails(id).subscribe(res => {
@@ -73,21 +107,4 @@ export class PlaceDetailsComponent {
   }
 }
 
-// this.placeService.getPlaces(new SearchPlaceFilter(
-// this.capacity.value!,
-// this.maxPrice.value ? this.maxPrice.value : 0,
-// this.voivodeship.value!,
-// this.street.value!,
-// this.city.value!,
-// this.range.controls.start.value!,
-// this.range.controls.end.value!,
-// this.category.value!)).subscribe(res => this.places = res);
-// this.route.queryParams.subscribe(params => {
-//   const param1 = params['param1'];
-//   const param2 = params['param2'];
-//   // Do something with the query parameters
-// });
-// const id = Number(this.route.snapshot.paramMap.get('id'));
-// this.placeService.getPlaceId(id).subscribe(res => {
-//   this.place = res;
-// });
+

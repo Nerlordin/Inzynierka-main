@@ -82,9 +82,30 @@
       Clear search params
     </button>
     <ng-container *ngIf="places.length > 0">
-      <mat-grid-list  cols="4">
+      <mat-grid-list style="margin-bottom: 30px" cols="3">
         <mat-grid-tile *ngFor="let place of places">
-          <mat-card class="example-card">
+          <div class="card">
+            <h4>{{place.name}}</h4>
+            <img [src]="getImage(place.id)" >
+            <p>{{place.placeCategory}} </p>
+            <p>{{place.address.city}} {{place.address.street}} {{place.address.building}} </p>
+            <button
+                (click)="getDetails(place!.id)"
+                mat-raised-button
+                color="primary"
+              >
+                Details
+              </button>
+              <button
+              style="margin-left: 2px"
+              mat-raised-button
+              color="primary"
+              (click)="showReviews(place.id)"
+            >
+              Reviews
+            </button>
+          </div>
+          <!-- <mat-card class="example-card">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{ place?.name }}</mat-card-title>
@@ -111,7 +132,7 @@
                 Reviews
               </button>
             </mat-card-actions>
-          </mat-card>
+          </mat-card> -->
         </mat-grid-tile>
       </mat-grid-list>
     </ng-container>

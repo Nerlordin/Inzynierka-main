@@ -8,57 +8,52 @@
       <p class="opis">Name: {{ place?.name }}</p>
       <p class="opis">Description: {{ place?.description }}</p>
       <p class="cena">Category: {{ place?.placeCategory }}</p>
-      <p class="adres">City: {{ place?.address?.city }}</p>
-      <p class="adres">
-        Street: {{ place?.address?.street }} {{ place?.address?.building }}
-      </p>
+      <p class="adres">Address:
+      {{ place?.address?.city }}, {{ place?.address?.street }}
+      {{ place?.address?.building }}</p>
     </div>
   </div>
-  <div class="gallery"></div>
 </div>
-<h2>Rooms</h2>
-<div *ngIf="place?.rooms?.length! > 0">
-  <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <!-- <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-    </ng-container> -->
-    <ng-container matColumnDef="capacity">
-      <th mat-header-cell *matHeaderCellDef>Capacity</th>
-      <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
-    </ng-container>
-    <ng-container matColumnDef="pricePerNight">
-      <th mat-header-cell *matHeaderCellDef>Price per night</th>
-      <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef>State</th>
-      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
-    </ng-container>
-    <ng-container matColumnDef="facilities">
-      <th mat-header-cell *matHeaderCellDef>Facilities</th>
-      <td mat-cell *matCellDef="let element">
-        {{ getFacilities(element.facilities) }}
-      </td>
-    </ng-container>
-    <!-- <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-   
-      </td>
-    </ng-container> -->
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+<div>
+  <h2>Rooms</h2>
+  <div *ngIf="place?.rooms?.length! > 0">
+    <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="capacity">
+        <th mat-header-cell *matHeaderCellDef>Capacity</th>
+        <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+      </ng-container>
+      <ng-container matColumnDef="pricePerNight">
+        <th mat-header-cell *matHeaderCellDef>Price per night</th>
+        <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef>State</th>
+        <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilities">
+        <th mat-header-cell *matHeaderCellDef>Facilities</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getFacilities(element.facilities) }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 </div>
 
 <div class="example-button-row">
   <button mat-button color="primary" (click)="showReviews()">Reviews</button>
 </div>
-
-<!-- <a routerLink="/places/{{place?.id}}/reviews"><button mat-button color="primary">Reviews</button></a> -->
+<div class="gallery"><h1>Gallery</h1></div>
+<div class="imgcontainer">
+  <div class="gallery" *ngFor="let image of imagesToShow; let i = index">
+    <img [src]="imagesToShow[i]" (click)="open(i)" />
+  </div>
+</div>

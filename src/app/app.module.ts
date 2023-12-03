@@ -51,7 +51,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { ReservePlaceDialogComponent } from './reserve-place-dialog/reserve-place-dialog.component';
 import { GenerateReportDialogComponent } from './generate-report-dialog/generate-report-dialog.component';
 import { SearchPlaceDetailsComponent } from './search-place-details/search-place-details.component';
-
+import { LightboxModule } from 'ngx-lightbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,12 +59,8 @@ import { SearchPlaceDetailsComponent } from './search-place-details/search-place
     Podstrona2Component,
     FooterComponent,
     RoomSelectionComponent,
-
-
     CreateRoomComponent,
     RoomsComponent,
-
-
   ],
   imports: [
     SearchPlaceDetailsComponent,

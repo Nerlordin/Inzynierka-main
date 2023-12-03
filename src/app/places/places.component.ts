@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { query } from '@angular/animations';
+import { ImageService } from '../_services/image.service';
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
@@ -39,7 +40,7 @@ import { query } from '@angular/animations';
 })
 export class PlacesComponent {
 
-  constructor(private router: Router, private placeService: PlaceService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private imageService: ImageService ,private placeService: PlaceService, private formBuilder: FormBuilder) { }
   maxPrice = new FormControl(0);
   capacity = new FormControl(0);
   street = new FormControl('');
@@ -48,7 +49,9 @@ export class PlacesComponent {
   voivodeship = new FormControl('');
   places: Place[] = []
   ngOnInit() {
-
+    this.places.forEach(place => {
+     
+    })
   }
   getDetails(placeId: number) {
     const queryParams = {
@@ -62,7 +65,7 @@ export class PlacesComponent {
       end: this.range!.get('end')!.value!.toISOString()
     };
     this.router
-    .navigateByUrl(`/search/places/${placeId}?maxPrice=${queryParams.maxPrice}&street=${queryParams.street}&city=${queryParams.city}&capacity=${queryParams.capacity}&start=${queryParams.start}&end=${queryParams.end}&category=${queryParams.category}`);
+      .navigateByUrl(`/search/places/${placeId}?maxPrice=${queryParams.maxPrice}&street=${queryParams.street}&city=${queryParams.city}&capacity=${queryParams.capacity}&start=${queryParams.start}&end=${queryParams.end}&category=${queryParams.category}`);
   }
   clearFilters() {
     this.places = [];
@@ -94,20 +97,44 @@ export class PlacesComponent {
   showReviews(placeId: number) {
     this.router.navigateByUrl(`/places/${placeId}/reviews`)
   }
-  abc="/assets/pobrane.png"
-  search() {
-
-    {
-      this.placeService.getPlaces(new SearchPlaceFilter(
-        this.capacity.value!,
-        this.maxPrice.value ? this.maxPrice.value : 0,
-        this.voivodeship.value!,
-        this.street.value!,
-        this.city.value!,
-        null,
-        this.range.controls.start.value!.toISOString(),
-        this.range.controls.end.value!.toISOString(),
-        this.category.value!)).subscribe(res => this.places = res);
+  imagesToShow = new Map<number, any>();
+  createImageFromBlob(image: Blob, placeId: number) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imagesToShow.set (placeId, reader!.result!);
+      return reader!.result!;
+    }, false);
+    if (image) {
+      reader.readAsDataURL(image);
     }
   }
+  getImage(placeId: number) {
+    return this.imagesToShow.get(placeId);
+  }
+  getImageById(placeId: number) {
+    this.imageService.getImage('image',placeId)
+      .subscribe(data => {
+         this.createImageFromBlob(data, placeId);
+      }, error => {
+      });
+  }
+
+search()
+
+{
+  this.placeService.getPlaces(new SearchPlaceFilter(
+    this.capacity.value!,
+    this.maxPrice.value ? this.maxPrice.value : 0,
+    this.voivodeship.value!,
+    this.street.value!,
+    this.city.value!,
+    null,
+    this.range.controls.start.value!.toISOString(),
+    this.range.controls.end.value!.toISOString(),
+    this.category.value!)).subscribe(res => {
+      this.places = res
+      res.forEach(r => 
+      this.getImageById(r.id))
+    });
 }
+  }
