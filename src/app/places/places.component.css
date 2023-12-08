@@ -1,11 +1,12 @@
 .card {
-    height: 90%;    
-    width: 80%;
+    height: 80%;    
+    width: 70%;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 20px;
-    margin: 20px;
-    padding-bottom: 20px;
+    padding: 10px;
+    margin: 10px;
+    padding-bottom: 10px;
+    background-color:ghostwhite;
   }
   
   /* Stylizacja obrazka */
@@ -18,5 +19,11 @@
   /* Stylizacja opisu */
   .card p {
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.4  ;
+   
   }
+    img {
+      margin: auto;
+    text-align: center;
+    height: 250px;
+}

@@ -1,16 +1,24 @@
-<div class="container">
-  <h1>Miejsce</h1>
+<div style="align-items: center;" class="container">
+  <h1 >Creating Place</h1>
   <form [formGroup]="placeForm">
     <div class="container">
       <div class="example-container">
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input matInput formControlName="description" />
-        </mat-form-field>
+    
 
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-select-trigger>
+              {{ placeForm.get("category")?.value! || "" }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let cat of categories" [value]="cat">{{
+              cat
+            }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
       <div class="example-container">
@@ -39,28 +47,21 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
+  
       </div>
 
-      <mat-form-field>
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
-          <mat-select-trigger>
-            {{ placeForm.get("category")?.value! || "" }}
-          </mat-select-trigger>
-          <mat-option *ngFor="let cat of categories" [value]="cat">{{
-            cat
-          }}</mat-option>
-        </mat-select>
+      <mat-form-field style="width: 50%;"  >
+        <mat-label>Description</mat-label>
+        <textarea  matInput formControlName="description" name="text"></textarea>
       </mat-form-field>
     </div>
   </form>
   <div>
-    <h3>Lista zdjęć:</h3>
+    <h3>Gallery:</h3>
     <div *ngIf="imageUrls.length > 0" class="image-container">
       <div *ngFor="let imageUrl of imageUrls; let i = index">
         <img [src]="imageUrl" alt="Accomodation Image" />
         <button mat-icon-button (click)="removeImageUrl(i)">
-          -
           <!-- <mat-icon>delete</mat-icon> -->
         </button>
       </div>
@@ -69,41 +70,31 @@
 
   <input matInput placeholder="Nowy URL zdjęcia" />
   <button mat-raised-button color="primary" (click)="addImageUrl()">
-    Dodaj zdjęcie
+   Add picture
   </button>
-  <button mat-raised-button color="primary" (click)="onSubmit()">
-    Dodaj obiekt
-  </button>
+
 </div>
 <div>
-  <h4>Rooms</h4>
-  <button mat-button (click)="addRoom()">Add room</button>
-  <button mat-button (click)="clearRooms()">Clear rooms</button>
+  <h1>Rooms</h1>
+  
   <form [formGroup]="roomForm">
     <div class="container">
       <div class="example-container">
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input matInput formControlName="description" />
-        </mat-form-field>
 
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
         </mat-form-field>
-      </div>
-      <div class="example-container">
+  
         <mat-form-field>
           <mat-label>Capacity</mat-label>
           <input matInput formControlName="capacity" />
         </mat-form-field>
-      </div>
-      <div class="example-container">
+  
         <mat-form-field>
           <mat-label>Price per night</mat-label>
           <input matInput formControlName="pricePerNight" />
         </mat-form-field>
-      </div>
       <mat-form-field>
         <mat-label>State</mat-label>
         <mat-select formControlName="state">
@@ -126,9 +117,18 @@
           }}</mat-option>
         </mat-select>
       </mat-form-field>
+      </div>
+      <mat-form-field style="width: 25%;"  >
+        <mat-label>Description</mat-label>
+        <textarea  matInput formControlName="description" name="text"></textarea>
+      </mat-form-field>
     </div>
+
   </form>
 </div>
+<button style="margin-left:10px" mat-raised-button color="primary" (click)="onSubmit()"> Submit </button>
+<button style="margin-left:10px" mat-raised-button color="primary" (click)="addRoom()">Add room</button>
+<button style="margin-left:10px" mat-raised-button color="warn" (click)="clearRooms()">Clear rooms</button>
 <div *ngIf="rooms.length > 0">
   <table mat-table [dataSource]="rooms" class="mat-elevation-z8">
 
@@ -145,7 +145,7 @@
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="capacity">
-      <th mat-header-cell *matHeaderCellDef>Capacity</th>
+      <th mat-header-cell *matHeaderCellDef>People</th>
       <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
     </ng-container>
     <!-- Symbol Column -->
@@ -166,7 +166,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element"><button (click)="removeRoom(element)">Delete room`</button></td>
+      <td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="removeRoom(element)">Delete room</button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

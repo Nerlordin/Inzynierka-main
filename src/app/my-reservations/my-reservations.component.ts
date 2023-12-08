@@ -36,7 +36,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class MyReservationsComponent {
   pageSize = 3;
   currentPage = 0;
-  displayedColumns: string[] = ['id', 'placeId', 'checkIn', 'checkOut', 'state','value','actions'];
+  displayedColumns: string[] = ['id', 'placeId','roomId', 'checkIn', 'checkOut', 'state','value','actions'];
   constructor(private reservationService: ReservationService){
     this.state.valueChanges.subscribe(value => {
       if(value !=='ALL' && value !== ''){

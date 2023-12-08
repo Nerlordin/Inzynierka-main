@@ -19,7 +19,3 @@
     transition: transform .15s ease;
     position: relative;
   }
-  .card{
-    width: 80%;
-    height: 80%;
-  }

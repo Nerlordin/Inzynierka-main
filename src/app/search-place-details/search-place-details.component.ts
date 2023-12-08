@@ -23,6 +23,7 @@ import { Place } from '../models/place';
 import { RoomDTO } from '../models/roomDTO';
 import { SearchPlaceFilter } from '../models/search-place-filter';
 import { ReservePlaceDialogComponent } from '../reserve-place-dialog/reserve-place-dialog.component';
+import { ImageService } from '../_services/image.service';
 
 @Component({
   selector: 'app-search-place-details',
@@ -43,7 +44,7 @@ import { ReservePlaceDialogComponent } from '../reserve-place-dialog/reserve-pla
 export class SearchPlaceDetailsComponent {
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router, private imageService: ImageService,
     private reservationService: ReservationService,
     private placeService: PlaceService, public dialog: MatDialog
   ) { }
@@ -55,7 +56,7 @@ export class SearchPlaceDetailsComponent {
     start: new FormControl<Date>(new Date()),
     end: new FormControl<Date>(new Date()),
   });
-  displayedColumns = ['capacity', 'state', 'pricePerNight', 'name', 'facilities', 'actions']
+  displayedColumns = ['name', 'capacity', 'pricePerNight', 'facilities', 'actions']
 
   ngOnInit(): void {
     this.setParams();
@@ -79,7 +80,7 @@ export class SearchPlaceDetailsComponent {
             finish: endDate.toISOString(),
             at: new Date().toISOString()
           }
-        ).subscribe(res => 
+        ).subscribe(res =>
           window.location.reload());
       }
     });
@@ -94,8 +95,8 @@ export class SearchPlaceDetailsComponent {
   }
   setParams() {
     this.route.queryParams.subscribe(params => {
-      let startDate = new Date(this.range.get('start')!.value!);
-      let endDate = new Date(this.range.get('end')!.value!);
+      let startDate = new Date(params['start']);
+      let endDate = new Date(params['end']);
       this.range.get('start')!.setValue(startDate)
       this.range.get('end')!.setValue(endDate)
       this.searchPlaceFilter = {
@@ -112,9 +113,9 @@ export class SearchPlaceDetailsComponent {
     });
   }
   searchAvailability() {
-    this.placeService.getPlaces(
+    this.placeService.getRooms(
       {
-        capacity: this.searchPlaceFilter?.capacity,
+        capacity:  this.searchPlaceFilter?.capacity,
         category: this.searchPlaceFilter?.category,
         city: this.searchPlaceFilter?.city,
         pricePerNight: this.searchPlaceFilter?.category,
@@ -126,7 +127,7 @@ export class SearchPlaceDetailsComponent {
       } as unknown as SearchPlaceFilter
 
     ).subscribe(res => {
-      this.availableRooms = res[0].rooms;
+      this.availableRooms = res.rooms;
     });
   }
   getPlaceDetails(): void {
@@ -134,10 +135,25 @@ export class SearchPlaceDetailsComponent {
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.placeService.getPlaceDetails(id).subscribe(res => {
         this.place = res;
+        this.getImagesById(res.id);
       })
     })
   }
-  currentImg="/assets/pobrane.png"
+  imagesToShow: string[] = []
+
+  getImagesById(placeId: number) {
+    this.imageService.getImageByPlace(placeId)
+      .subscribe(data => {
+        data.forEach(image => this.imagesToShow.push(image.url));
+      },
+        error => {
+        });
+  }
+  getUrlForPlace(): string {
+    return this.imagesToShow[0];
+  }
+  isLoading = true;
+
   getPlace(): void {
     this.route.queryParams.subscribe(params => {
       const start = params['start'];

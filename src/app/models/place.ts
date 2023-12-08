@@ -9,5 +9,6 @@ export interface Place{
        placeCategory: string;
     userId:number;
     rooms: RoomDTO[];
+    minPricePerNight: number;
     facilities: string[];
 }

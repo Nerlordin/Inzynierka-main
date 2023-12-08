@@ -1,4 +1,4 @@
-<div class="card">
+<div style="margin-right:15px;margin-left:15px"class="card">
   <div class="card-content">
     <div class="image-wrapper">
       <img mat-card-image [src]="" alt="Hotel Image" />
@@ -15,21 +15,21 @@
   </div>
 </div>
 
-<div>
-  <h2>Rooms</h2>
-  <div *ngIf="place?.rooms?.length! > 0">
+<div style="margin-right:15px;margin-left:15px">
+  <h2 >Rooms</h2>
+  <div style="margin-right:15px;margin-left:15px" *ngIf="place?.rooms?.length! > 0">
     <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
       <ng-container matColumnDef="capacity">
-        <th mat-header-cell *matHeaderCellDef>Capacity</th>
+        <th mat-header-cell *matHeaderCellDef>People</th>
         <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
       </ng-container>
       <ng-container matColumnDef="pricePerNight">
         <th mat-header-cell *matHeaderCellDef>Price per night</th>
-        <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.pricePerNight }} zł</td>
       </ng-container>
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef>State</th>

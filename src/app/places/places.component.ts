@@ -40,7 +40,14 @@ import { ImageService } from '../_services/image.service';
 })
 export class PlacesComponent {
 
-  constructor(private router: Router, private imageService: ImageService ,private placeService: PlaceService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private imageService: ImageService,
+     private placeService: PlaceService, private formBuilder: FormBuilder) {
+      let start = new Date();
+      const endDate = new Date(start);
+      endDate.setDate(start.getDate() + 1);
+      this.range.get('end')?.setValue(endDate);
+      
+      }
   maxPrice = new FormControl(0);
   capacity = new FormControl(0);
   street = new FormControl('');
@@ -50,7 +57,7 @@ export class PlacesComponent {
   places: Place[] = []
   ngOnInit() {
     this.places.forEach(place => {
-     
+
     })
   }
   getDetails(placeId: number) {
@@ -72,7 +79,8 @@ export class PlacesComponent {
 
     this.maxPrice.reset();
   }
-  range = new FormGroup({
+
+  range : FormGroup = new FormGroup({
     start: new FormControl<Date>(new Date()),
     end: new FormControl<Date>(new Date()),
   });
@@ -86,7 +94,7 @@ export class PlacesComponent {
     'WIELKOPOLSKIE',
     'ZACHODNIO_POMORSKIE',
     'KUJAWSKO_POMORSKIE',
-    'ŚLĄSKIE',
+    'ŚLĄSKIE',  
     'DOLNO_ŚLĄSKIE',
     'ŚWIĘTOKRZYSKIE',
     'ŚLĄSKIE',
@@ -97,11 +105,11 @@ export class PlacesComponent {
   showReviews(placeId: number) {
     this.router.navigateByUrl(`/places/${placeId}/reviews`)
   }
-  imagesToShow = new Map<number, any>();
+  imagesToShow = new Map<number, string>();
   createImageFromBlob(image: Blob, placeId: number) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
-      this.imagesToShow.set (placeId, reader!.result!);
+      // this.imagesToShow.set (placeId, reader!.result!);
       return reader!.result!;
     }, false);
     if (image) {
@@ -112,29 +120,42 @@ export class PlacesComponent {
     return this.imagesToShow.get(placeId);
   }
   getImageById(placeId: number) {
-    this.imageService.getImage('image',placeId)
+    this.imageService.getImage('image', placeId)
       .subscribe(data => {
-         this.createImageFromBlob(data, placeId);
+        this.createImageFromBlob(data, placeId);
       }, error => {
       });
   }
-
-search()
-
-{
-  this.placeService.getPlaces(new SearchPlaceFilter(
-    this.capacity.value!,
-    this.maxPrice.value ? this.maxPrice.value : 0,
-    this.voivodeship.value!,
-    this.street.value!,
-    this.city.value!,
-    null,
-    this.range.controls.start.value!.toISOString(),
-    this.range.controls.end.value!.toISOString(),
-    this.category.value!)).subscribe(res => {
-      this.places = res
-      res.forEach(r => 
-      this.getImageById(r.id))
-    });
-}
+  getImagesById(placeId: number) {
+    this.imageService.getImageByPlace(placeId)
+      .subscribe(data => {
+        if (data.length > 0) {
+          this.imagesToShow.set(placeId, data.at(0)!.url);
+        }
+      }, error => {
+      });
   }
+  getUrlForPlace(placeId: number): string {
+    return this.imagesToShow.get(placeId)!;
+  }
+  isLoading = true;
+  search() {
+    this.placeService.getPlaces(new SearchPlaceFilter(
+      this.capacity.value!,
+      this.maxPrice.value ? this.maxPrice.value : 0,
+      this.voivodeship.value!,
+      this.street.value!,
+      this.city.value!,
+      null,
+      this.range.controls['start'].value.toISOString(),
+      this.range.controls['end'].value.toISOString(),
+      this.category.value!)).subscribe(res => {
+        this.places = res
+        res.forEach(r => {
+          this.getImagesById(r.id)
+
+          this.isLoading = false;
+        })
+      });
+  }
+}

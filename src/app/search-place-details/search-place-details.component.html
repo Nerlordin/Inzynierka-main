@@ -1,86 +1,100 @@
-<div class="image-wrapper">
-  <img mat-card-image [src]="currentImg" alt="Hotel Image" />
-  <div class="rating-kwadrat"></div>
-</div>
-<h1>{{place!.name}}</h1>
-<div class="info">
-  <p class="cena">Place category: {{ place?.placeCategory }}</p>
+<div style="margin-left: 25px" *ngIf="place">
+  <div class="image-wrapper">
+    <img mat-card-image [src]="getUrlForPlace()" alt="Hotel Image" />
+    <div class="rating-kwadrat"></div>
+  </div>
+  <h1>{{ place!.name }}</h1>
+  <div class="info">
+    <p class="cena">Place category: {{ place?.placeCategory }}</p>
 
-  <h3>Address</h3>
-  <p class="adres">{{ place?.address?.city }} {{ place?.address?.street }} {{ place?.address?.building }}</p>
-</div>
-<p class="opis">Description: {{ place?.description }}</p>
-<div class="gallery"></div>
-<div class="example-button-row">
-  <button mat-button color="primary" (click)="showReviews()">
-    Show reviews
+    <h3>Address:</h3>
+    <p class="adres">
+      {{ place?.address?.city }} {{ place?.address?.street }}
+      {{ place?.address?.building }}
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+  <p class="opis">Description: {{ place?.description }}</p>
+  <div class="gallery"></div>
+  <div style="margin-bottom: 30px" class="example-button-row">
+    <button mat-raised-button color="primary" (click)="showReviews()">
+      Show reviews
+    </button>
+  </div>
+  <mat-divider style="margin-bottom: 10px"></mat-divider>
+
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date" />
+      <input matEndDate formControlName="end" placeholder="End date" />
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+      >Invalid start date</mat-error
+    >
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+      >Invalid end date</mat-error
+    >
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-left: 20px"
+    (click)="searchAvailability()"
+  >
+    Search availability
   </button>
-</div>
-<mat-form-field>
-  <mat-label>Enter a date range</mat-label>
-  <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-    <input matStartDate formControlName="start" placeholder="Start date" />
-    <input matEndDate formControlName="end" placeholder="End date" />
-  </mat-date-range-input>
-  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker #picker></mat-date-range-picker>
-  <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')"
-    >Invalid start date</mat-error
-  >
-  <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
-    >Invalid end date</mat-error
-  >
-</mat-form-field>
-<button mat-button color="primary" (click)="searchAvailability()">
-  Search rooms
-</button>
-<h2>Rooms</h2>
+  <div style="margin-bottom:15px;margin-right:15px" *ngIf="availableRooms.length == 0">
+    <h2>No rooms</h2>
 
-<div *ngIf="availableRooms.length > 0">
-  <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <!-- <ng-container matColumnDef="description">
+  </div>
+  <div style="margin-bottom:15px;margin-right:15px" *ngIf="availableRooms.length > 0">
+    <h2>Rooms</h2>
+    <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let element">{{ element.description }}</td>
       </ng-container> -->
-    <ng-container matColumnDef="capacity">
-      <th mat-header-cell *matHeaderCellDef>Capacity</th>
-      <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
-    </ng-container>
-    <ng-container matColumnDef="pricePerNight">
-      <th mat-header-cell *matHeaderCellDef>Price per night</th>
-      <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef>State</th>
-      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
-    </ng-container>
-    <ng-container matColumnDef="facilities">
-      <th mat-header-cell *matHeaderCellDef>Facilities</th>
-      <td mat-cell *matCellDef="let element">
-        {{ getFacilities(element.facilities) }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-button
-          color="primary"
-          (click)="reservationCreate(element.id)"
-        >
-          Reserve
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="capacity">
+        <th mat-header-cell *matHeaderCellDef>People</th>
+        <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+      </ng-container>
+      <ng-container matColumnDef="pricePerNight">
+        <th mat-header-cell *matHeaderCellDef>Price per night</th>
+        <td mat-cell *matCellDef="let element">{{ element.pricePerNight }} zł</td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef>State</th>
+        <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilities">
+        <th mat-header-cell *matHeaderCellDef>Facilities</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getFacilities(element.facilities) }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="reservationCreate(element.id)"
+          >
+            Reserve
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 </div>
-
-<!-- <a routerLink="/places/{{place?.id}}/reviews"><button mat-button color="primary">Reviews</button></a> -->

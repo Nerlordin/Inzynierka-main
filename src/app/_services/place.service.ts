@@ -13,6 +13,25 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class PlaceService {
+  getRooms(filter: SearchPlaceFilter) {
+    let queryParams = new HttpParams();
+    if (filter.capacity != 0) {
+      queryParams = queryParams.append("capacity", filter.capacity);
+    }
+    if (filter.pricePerNight != 0) {
+      queryParams = queryParams.append("pricePerNight", filter.pricePerNight);
+    }
+    if (filter.from != null) {
+      queryParams = queryParams.append("from", filter.from);
+    }
+    if (filter.to != null) {
+      queryParams = queryParams.append("to", filter.to);
+    }
+    if (filter.placeId != null) {
+      queryParams = queryParams.append("placeId", filter.placeId);
+    }
+    return this.http.get<Place>(`${API_URL}/rooms/filters`, { params: queryParams });
+  }
   getPlaceDetails(id: number) {
     return this.http.get<Place>(`${API_URL}/${id}/details`, httpOptions);
   }

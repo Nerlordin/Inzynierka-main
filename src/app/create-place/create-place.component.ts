@@ -41,7 +41,7 @@ export class CreatePlaceComponent {
   placeForm: FormGroup;
   roomForm: FormGroup;
   rooms: RoomDTO[] = [];
-  displayedColumns = ['capacity', 'state', 'pricePerNight', 'description', 'name', 'facilities', 'actions']
+  displayedColumns = [ 'description', 'name','capacity', 'pricePerNight', 'facilities', 'actions']
   constructor(private placeService: PlaceService, private fb: FormBuilder, private router: Router) {
     this.roomForm = this.fb.group({
       name: ['Daw', Validators.required],

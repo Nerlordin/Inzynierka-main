@@ -1,8 +1,7 @@
-<!-- <app-search></app-searc  h> -->
 <div class="container">
   <section class="filtr">
-    <h1>Search places</h1>
-    <div class="example-container">
+    <h1 style="text-align: center">Search places</h1>
+    <div style="margin-left: 20px" class="example-container">
       <mat-form-field>
         <mat-label>Voivodeship</mat-label>
         <mat-select [formControl]="voivodeship">
@@ -68,28 +67,50 @@
           [for]="picker"
         ></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+        <mat-error
+          *ngIf="range.controls['start'].hasError('matStartDateInvalid')"
           >Invalid start date</mat-error
         >
-        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+        <mat-error *ngIf="range.controls['end'].hasError('matEndDateInvalid')"
           >Invalid end date</mat-error
         >
       </mat-form-field>
     </div>
 
-    <button mat-button color="primary" (click)="search()">Search</button>
-    <button mat-button color="warn" (click)="clearFilters()">
+    <button
+      style="margin-left: 20px"
+      mat-raised-button
+      color="primary"
+      (click)="search()"
+    >
+      Search
+    </button>
+    <button
+      style="margin-left: 5px"
+      mat-raised-button
+      color="warn"
+      (click)="clearFilters()"
+    >
       Clear search params
     </button>
-    <ng-container *ngIf="places.length > 0">
-      <mat-grid-list style="margin-bottom: 30px" cols="3">
-        <mat-grid-tile *ngFor="let place of places">
-          <div class="card">
-            <h4>{{place.name}}</h4>
-            <img [src]="getImage(place.id)" >
-            <p>{{place.placeCategory}} </p>
-            <p>{{place.address.city}} {{place.address.street}} {{place.address.building}} </p>
-            <button
+    <mat-divider style="margin-top: 5px; margin-bottom: 5px"></mat-divider>
+    <div style="margin-top: 10px">
+      <ng-container *ngIf="places.length > 0 && imagesToShow.size > 5">
+        <mat-grid-list style="margin-bottom: 15px" cols="3">
+          <mat-grid-tile *ngFor="let place of places">
+            <div class="card">
+              <h4 style="text-align: center">{{ place.name }}</h4>
+              <img
+                style="margin-left: 50px; margin-bottom: 20px"
+                [src]="getUrlForPlace(place.id)"
+              />
+              <p>{{ place.placeCategory }}</p>
+              <p>
+                {{ place.address.city }}, {{ place.address.street }}
+                {{ place.address.building }}
+              </p>
+              <p style="margin-top: 5px">{{ place.minPricePerNight }} zł</p>
+              <button
                 (click)="getDetails(place!.id)"
                 mat-raised-button
                 color="primary"
@@ -97,15 +118,23 @@
                 Details
               </button>
               <button
-              style="margin-left: 2px"
-              mat-raised-button
-              color="primary"
-              (click)="showReviews(place.id)"
-            >
-              Reviews
-            </button>
-          </div>
-          <!-- <mat-card class="example-card">
+                style="margin-left: 2px"
+                mat-raised-button
+                color="primary"
+                (click)="showReviews(place.id)"
+              >
+                Reviews
+              </button>
+              <button
+                style="margin-left: 2px"
+                mat-raised-button
+                color="primary"
+                (click)="showReviews(place.id)"
+              >
+                Reservation
+              </button>
+            </div>
+            <!-- <mat-card class="example-card">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{ place?.name }}</mat-card-title>
@@ -133,8 +162,9 @@
               </button>
             </mat-card-actions>
           </mat-card> -->
-        </mat-grid-tile>
-      </mat-grid-list>
-    </ng-container>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </ng-container>
+    </div>
   </section>
 </div>

@@ -1,92 +1,78 @@
-
-<h1>My places</h1>
-<div ><button (click)="createPlace()" mat-button color="primary">Add new place</button></div>
-<div style="height: 10%;">
-  <h3>Search filters</h3>
-<mat-form-field >
-  <mat-label>Category</mat-label>
-  <mat-select [formControl]="type">
-    <mat-select-trigger>
-      {{type.value || ''}}
-
-    </mat-select-trigger>
-    <mat-option *ngFor="let type of types;" [value]="type">{{ type }}</mat-option>
-  </mat-select>
-</mat-form-field>
+<h1 style="text-align: center">My places</h1>
+<div style="height: 10%">
+  <h3 style="margin-left: 15px">Search filters</h3>
+  <mat-form-field style="margin-left: 10px">
+    <mat-label>Category</mat-label>
+    <mat-select [formControl]="type">
+      <mat-select-trigger>
+        {{ type.value || "" }}
+      </mat-select-trigger>
+      <mat-option *ngFor="let type of types" [value]="type">{{
+        type
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    style="margin-left: 30px"
+    (click)="createPlace()"
+    mat-raised-button
+    color="primary"
+  >
+    Add new place
+  </button>
 </div>
 
+<table mat-table [dataSource]="selectedPlaces" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
 
-  <table mat-table [dataSource]="selectedPlaces" class="mat-elevation-z8">
- 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.name}}
-      </td>
-    </ng-container>
-  
-    <!-- <ng-container matColumnDef="description">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Description</th>
       <td mat-cell *matCellDef="let element">
         {{element.description}}
       </td>
     </ng-container> -->
-    <ng-container matColumnDef="placeCategory">
-      <th mat-header-cell *matHeaderCellDef>Type</th>
-      <td mat-cell *matCellDef="let element">{{ element.placeCategory }}</td>
-    </ng-container>
-    <ng-container matColumnDef="roomSize">
-      <th mat-header-cell *matHeaderCellDef>Rooms</th>
-      <td mat-cell *matCellDef="let element">{{ element.rooms.length }}</td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-button
-          color="primary"
-          (click)="showDetails(element.id)"
-        >
-          Details
-        </button>
-        <button
-          mat-button
-          color="primary"
-          (click)="edit(element.id)"
-        >
-          Edit
-        </button>
-        
-        <button
-        mat-button
-        color="primary"
-        (click)="generateReport(element.id)"
-      >
+  <ng-container matColumnDef="placeCategory">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let element">{{ element.placeCategory }}</td>
+  </ng-container>
+  <ng-container matColumnDef="roomSize">
+    <th mat-header-cell *matHeaderCellDef>Rooms</th>
+    <td mat-cell *matCellDef="let element">{{ element.rooms.length }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="primary" (click)="showDetails(element.id)">
+        Details
+      </button>
+      <button mat-button color="primary" (click)="edit(element.id)">
+        Edit
+      </button>
+
+      <button mat-button color="primary" (click)="generateReport(element.id)">
         Generate report
       </button>
-      <button
-      mat-button
-      color="warn"
-      (click)="edit(element)"
-    >
-    Delete
-    </button>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  
-  <mat-paginator
-    [length]="selectedPlaces.length"
-    [pageSize]="3"
-    [pageSizeOptions]="[3, 6, 9]"
-    (page)="onPageChange($event)"
-  ></mat-paginator>
-  
+      <button mat-button color="warn" (click)="edit(element)">Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [length]="selectedPlaces.length"
+  [pageSize]="3"
+  [pageSizeOptions]="[3, 6, 9]"
+  (page)="onPageChange($event)"
+></mat-paginator>
