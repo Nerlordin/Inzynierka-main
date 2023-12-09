@@ -24,6 +24,7 @@ import { RoomDTO } from '../models/roomDTO';
 import { SearchPlaceFilter } from '../models/search-place-filter';
 import { ReservePlaceDialogComponent } from '../reserve-place-dialog/reserve-place-dialog.component';
 import { ImageService } from '../_services/image.service';
+import { ReviewPageComponent } from '../review-page/review-page.component';
 
 @Component({
   selector: 'app-search-place-details',
@@ -38,7 +39,7 @@ import { ImageService } from '../_services/image.service';
     JsonPipe,
     MatNativeDateModule,
     AccomodationCardComponent, FormsModule, ReactiveFormsModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule
-    , FormsModule, ReactiveFormsModule, MatInputModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
+    , FormsModule,ReviewPageComponent, ReactiveFormsModule, MatInputModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
   standalone: true
 })
 export class SearchPlaceDetailsComponent {
@@ -61,23 +62,27 @@ export class SearchPlaceDetailsComponent {
   ngOnInit(): void {
     this.setParams();
     this.getPlaceDetails();
+    this.searchAvailability();
   }
 
   reservationCreate(roomId: number): void {
+    let start = new Date(this.range.get('start')!.value!)
+    let end = new Date(this.range.get('end')!.value!)  ;
+    start.setHours(12);end.setHours(12);
     const dialogRef = this.dialog.open(ReservePlaceDialogComponent, {
+
       autoFocus: true,
-      data: { start: this.range.get('start')!.value!, end: this.range.get('end')!.value! },
+      data: { start: start, end: end },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        let startDate = new Date(this.range.get('start')!.value!);
-        let endDate = new Date(this.range.get('end')!.value!);
+        
         this.reservationService.reserve(
           {
             roomId: roomId,
             placeId: this.place!.id,
-            start: startDate.toISOString(),
-            finish: endDate.toISOString(),
+            start: start.toISOString(),
+            finish: end.toISOString(),
             at: new Date().toISOString()
           }
         ).subscribe(res =>
@@ -113,7 +118,11 @@ export class SearchPlaceDetailsComponent {
     });
   }
   searchAvailability() {
+    let start = new Date(this.range.get('start')!.value!)
+    let end = new Date(this.range.get('end')!.value!)  ;
+    start.setHours(12);end.setHours(12);
     this.placeService.getRooms(
+    
       {
         capacity:  this.searchPlaceFilter?.capacity,
         category: this.searchPlaceFilter?.category,
@@ -122,8 +131,8 @@ export class SearchPlaceDetailsComponent {
         voivodeship: this.searchPlaceFilter?.category,
         street: this.searchPlaceFilter?.category,
         placeId: this.searchPlaceFilter?.placeId,
-        from: new Date(this.range.get('start')!.value!).toISOString(),
-        to: new Date(this.range.get('end')!.value!).toISOString()
+        from: start.toISOString(),
+        to: end.toISOString()
       } as unknown as SearchPlaceFilter
 
     ).subscribe(res => {

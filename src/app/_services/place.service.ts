@@ -38,8 +38,8 @@ export class PlaceService {
   generateReport(placeId: number, from: Date, to: Date) {
     return this.http.post('http://localhost:9990/reports', { placeId: placeId, from: from.toISOString(), to: to.toISOString() });
   }
-  addPlace(place: CreatePlaceRequest) {
-    return this.http.post(API_URL, place);
+  addPlace(place: CreatePlaceRequest): Observable<number> {
+    return this.http.post<number>(API_URL, place);
   }
   constructor(private http: HttpClient) { }
   getPlaces(filter: SearchPlaceFilter): Observable<Place[]> {

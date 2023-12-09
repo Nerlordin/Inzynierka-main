@@ -48,12 +48,15 @@
   </div>
 </div>
 
-<div class="example-button-row">
+<!-- <div class="example-button-row">
   <button mat-button color="primary" (click)="showReviews()">Reviews</button>
-</div>
+</div> -->
 <div class="gallery"><h1>Gallery</h1></div>
 <div class="imgcontainer">
   <div class="gallery" *ngFor="let image of imagesToShow; let i = index">
     <img [src]="imagesToShow[i]" (click)="open(i)" />
   </div>
+</div>
+<div>
+<app-review-page></app-review-page>
 </div>

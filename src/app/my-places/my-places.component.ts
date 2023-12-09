@@ -45,7 +45,7 @@ export class MyPlacesComponent {
   selectedPlaces: Place[] = [];
   currentPage = 1;
   type = new FormControl('');
-  types = ["HOTEL", "CAMPING", "ALL"]
+  types = ["HOTEL", "CAMPING","APARTMENTS","VILLAS","ALL"]
   ngOnInit() {
     this.placeService.getMyPlaces().subscribe(res => {
       this.places = res;

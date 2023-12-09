@@ -61,6 +61,7 @@ import { LightboxModule } from 'ngx-lightbox';
     RoomSelectionComponent,
     CreateRoomComponent,
     RoomsComponent,
+    
   ],
   imports: [
     SearchPlaceDetailsComponent,

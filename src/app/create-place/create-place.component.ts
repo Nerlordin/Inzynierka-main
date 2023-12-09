@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { RoomDTO } from '../models/roomDTO';
+import { ImageService } from '../_services/image.service';
 @Component({
   selector: 'app-create-place',
   templateUrl: './create-place.component.html',
@@ -42,7 +43,9 @@ export class CreatePlaceComponent {
   roomForm: FormGroup;
   rooms: RoomDTO[] = [];
   displayedColumns = [ 'description', 'name','capacity', 'pricePerNight', 'facilities', 'actions']
-  constructor(private placeService: PlaceService, private fb: FormBuilder, private router: Router) {
+  constructor(private placeService: PlaceService, 
+    private imageService: ImageService,
+    private fb: FormBuilder, private router: Router) {
     this.roomForm = this.fb.group({
       name: ['Daw', Validators.required],
       description: ['Daw', Validators.required],
@@ -115,26 +118,28 @@ export class CreatePlaceComponent {
       this.newImageUrl = '';
     }
   }
-
+  selectedFiles: File[] = [];
+  onFileChanged(event: any) {
+    this.selectedFiles = event.target.files;
+  }
+  onUpload() {
+    if (this.selectedFiles.length > 0) {
+      // this.uploadService.uploadImages(this.selectedFiles).subscribe(
+      //   (response) => {
+      //     console.log('Images uploaded successfully!', response);
+      //     // Handle success response from the server
+      //   },
+      //   (error) => {
+      //     console.error('Error uploading images:', error);
+      //     // Handle error response from the server
+      //   }
+      // );
+    }
+  }
   removeImageUrl(index: number) {
     this.imageUrls.splice(index, 1);
   }
-  /* onSubmit() {
-     if (this.form.valid) {
-       const apiUrl = 'your_server_api_url';
-      
-       this.http.post(apiUrl, this.form.value).subscribe(
-         (response) => {
-           console.log('Data sent successfully:', response);    
-           this.form.reset(); 
-         },
-         (error) => {
-           console.error('Error sending data:', error);
-           this.form.reset(); 
-         }
-       );
-     }
-   }*/
+
   onSubmit() {
     {
       let request = {
@@ -150,6 +155,8 @@ export class CreatePlaceComponent {
       } as CreatePlaceRequest;
       this.placeService.addPlace(request).subscribe(res => {
         this.router.navigateByUrl('/places/my')
+      this.imageService.upload(this.selectedFiles, res).subscribe(res => res);
+        
       });
       if (this.placeForm.valid) {
         this.placeID++;
@@ -163,5 +170,23 @@ export class CreatePlaceComponent {
       }
     }
   }
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    // selectedFile: ImageSnippet;
+    reader.addEventListener('load', (event: any) => {
 
+      // this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      // this.imageService.uploadImage(this.selectedFile.file).subscribe(
+      //   (res) => {
+        
+      //   },
+      //   (err) => {
+        
+      //   })
+    });
+
+    reader.readAsDataURL(file);
+  }
 }

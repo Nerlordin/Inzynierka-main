@@ -68,11 +68,15 @@
     </div>
   </div>
 
-  <input matInput placeholder="Nowy URL zdjęcia" />
-  <button mat-raised-button color="primary" (click)="addImageUrl()">
-   Add picture
-  </button>
+  <!-- <input matInput placeholder="Nowy URL zdjęcia" /> -->
+  <!-- <button mat-raised-button color="primary" (click)="addImageUrl()"> -->
+   <!-- Add picture -->
+  <!-- </button> -->
+  <input type="file" (change)="onFileChanged($event)" multiple />
+<!-- <button (click)="onUpload()">Upload</button> -->
 
+  <!-- <input class="ng-hide" id="input-file-id" multiple type="file" /> -->
+  <!-- <label for="input-file-id" class="md-button md-raised md-primary"></label> -->
 </div>
 <div>
   <h1>Rooms</h1>

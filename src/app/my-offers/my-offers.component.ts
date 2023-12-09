@@ -37,7 +37,7 @@ export class MyOffersComponent {
       }
     })
   }
-  state = new FormControl('');
+  state = new FormControl('ALL');
 
   possibleStates: string[] = ['ALL', 'CANCELLED', 'CONFIRMED', 'WAITING'];
   reservations: Reservation[] = [];

@@ -19,6 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select'; 
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @Injectable({
@@ -30,7 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './my-reservations.component.html',
   styleUrls: ['./my-reservations.component.css'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule,MatListModule,MatFormFieldModule,MatTableModule, MatSelectModule,MatRadioModule,CommonModule,MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
+  imports: [FormsModule,MatChipsModule, ReactiveFormsModule,RouterModule,MatListModule,MatFormFieldModule,MatTableModule, MatSelectModule,MatRadioModule,CommonModule,MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
 })
 
 export class MyReservationsComponent {
@@ -47,9 +48,9 @@ export class MyReservationsComponent {
       }
     });
   }
-  state = new FormControl('');
+  state = new FormControl('ALL');
 
-  possibleStates: string[] = ['ALL','CANCELLED','CONFIRMED','WAITING'];
+  possibleStates: string[] = ['ALL','CANCELLED','CONFIRMED','WAITING','FINISHED'];
   reservations: Reservation[] =[];
   selectedReservations: Reservation[] =[];
 

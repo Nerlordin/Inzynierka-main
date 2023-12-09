@@ -25,6 +25,7 @@ import { RoomDTO } from '../models/roomDTO';
 import { SearchPlaceFilter } from '../models/search-place-filter';
 import { ReservationService } from '../_services/reservation.service';
 import { ImageService } from '../_services/image.service';
+import { ReviewPageComponent } from '../review-page/review-page.component';
 @Component({
   selector: 'app-place-details',
   templateUrl: './place-details.component.html',
@@ -36,7 +37,7 @@ import { ImageService } from '../_services/image.service';
     FormsModule,
     ReactiveFormsModule,
     JsonPipe,
-    MatNativeDateModule,
+    MatNativeDateModule,ReviewPageComponent,
     AccomodationCardComponent, FormsModule, ReactiveFormsModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule
     , FormsModule, ReactiveFormsModule, MatInputModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule],
   standalone: true
