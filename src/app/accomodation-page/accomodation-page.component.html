@@ -12,25 +12,19 @@
         </div>
       </div>
       <div class="info">
-        
-          <mat-card-content *ngFor="let accommodation of accommodations">
-            <div *ngIf="accommodation.placeID == placeID">
-              <div class="custom-font">Nazwa: {{ accommodation.name }}</div>
-              <div class="custom-font">Stan: {{ accommodation.state }}</div>
-              <div class="custom-font">Cena za noc: {{ accommodation.pricepernight }}</div>
-              <div class="custom-font">Atrakcje w pobliżu: {{ accommodation.facilities }}</div>    
-            </div>
-          </mat-card-content>
-        
-        
+        <mat-card-content>
+          <p class="cena">Cena: {{ price }}</p>
+          <p class="adres">Adres: {{ address }}</p>
+        </mat-card-content>
+        <mat-card-content>
+          <p class="opis">Opis: {{ description }}</p>
+        </mat-card-content>
       </div>
     </div>
-    <div class="gallery" *ngFor="let accommodation of accommodations">
-      <div *ngIf="accommodation.placeID == placeID">  
-        <div class="image-container" *ngFor="let image of accommodation.images" >
-          <img [src]="image" alt="Image" (click)="setCurrentImage(image)">
-        </div>
-      </div>
+    <div class="gallery">
+      <img [src]="imageUrl" alt="Image 1" (click)="setCurrentImage(imageUrl)">
+      <img [src]="smallImage" alt="Image 2" (click)="setCurrentImage(smallImage)">
+      <img [src]="image2" alt="Image 3" (click)="setCurrentImage(image2)">
     </div>
     
   </mat-card>
@@ -39,11 +33,7 @@
   <a routerLink="/review"><button mat-button color="primary">Sprawdz opinie</button></a>
 </div> 
 <div style="width: 80%; margin: 0 auto;">
-
-  <app-review-component
-  [placeID]="placeID"
-  ></app-review-component>
- 
+  <app-review-component></app-review-component>
 </div>
 
 
@@ -67,8 +57,8 @@
             <tr *ngFor="let element of dataSource">
               <td>{{ element.capacity }}</td>
               <td>{{ element.name }}</td>
-              <td>{{ element.pricepernight }}</td>
-              <td>{{ element.facilities }}</td>
+              <td>{{ element.pricePerNight }}</td>
+              <td>{{ element.description }}</td>
               <td>
                 <input type="checkbox" (change)="toggleRoomSelection(element)" [checked]="isRoomSelected(element)">
               </td>

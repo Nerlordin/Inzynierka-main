@@ -11,14 +11,14 @@ import {MatSliderModule} from '@angular/material/slider';
   imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, JsonPipe, MatSliderModule],
 })
 export class FiltryComponent {
-  accomodation_type: FormGroup;
+  searchFilter: FormGroup;
 
   constructor(private _formBuilder: FormBuilder) {
-    this.accomodation_type = this._formBuilder.group({
+    this.searchFilter = this._formBuilder.group({
       hotel: false,
       camping: false,
       pensjonat: false,
-      cena: new FormControl(10), // Dodaj formControl cena i ustaw początkową wartość na 0
+      maxPrice: new FormControl(10), 
     });
   }
 }

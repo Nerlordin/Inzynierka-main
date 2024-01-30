@@ -1,0 +1,78 @@
+<h1 style="text-align: center">Moje obiekty</h1>
+<div style="height: 10%">
+  <h3 style="margin-left: 15px">Filtry wyszukiwania</h3>
+  <mat-form-field style="margin-left: 10px">
+    <mat-label>Kategoria</mat-label>
+    <mat-select [formControl]="type">
+      <mat-select-trigger>
+        {{ type.value || "" }}
+      </mat-select-trigger>
+      <mat-option *ngFor="let type of types" [value]="type">{{
+        type
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    style="margin-left: 30px"
+    (click)="createPlace()"
+    mat-raised-button
+    color="primary"
+  >
+  Dodaj nowy obiekt
+  </button>
+</div>
+
+<table mat-table [dataSource]="selectedPlaces" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.description}}
+      </td>
+    </ng-container> -->
+  <ng-container matColumnDef="placeCategory">
+    <th mat-header-cell *matHeaderCellDef>Kategoria</th>
+    <td mat-cell *matCellDef="let element">{{ element.placeCategory }}</td>
+  </ng-container>
+  <ng-container matColumnDef="roomSize">
+    <th mat-header-cell *matHeaderCellDef>Pokoje</th>
+    <td mat-cell *matCellDef="let element">{{ element.rooms.length }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Akcje</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="primary" (click)="showDetails(element.id)">
+        Szczegóły
+      </button>
+      <button mat-button color="primary" (click)="edit(element.id)">
+       Edycja
+      </button>
+
+      <button mat-button color="primary" (click)="generateReport(element.id)">
+        Generuj raport
+      </button>
+      <button mat-button color="warn" (click)="remove(element.id)">Usuń</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [length]="selectedPlaces.length"
+  [pageSize]="3"
+  [pageSizeOptions]="[3, 6, 9]"
+  (page)="onPageChange($event)"
+></mat-paginator>

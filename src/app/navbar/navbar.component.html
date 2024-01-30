@@ -3,12 +3,18 @@
   <p class="left-align">
     <mat-toolbar>
       <ul>
-      <span>My Application</span>
+      <span>Sleep Hub</span>
       <div class="example-button-row">
-        <a routerLink="/"> <button mat-button color="primary">Strona główna</button> </a>
-        <a routerLink="/register"><button mat-button color="primary">Zarejestruj sie</button></a>
-        <a routerLink="/login"><button mat-button color="primary">Zaloguj sie</button></a>
-        <a routerLink="/profile"><button mat-button color="primary">Mój profil</button></a>
+        <!-- <a  routerLink="/"> <button mat-button color="primary" *ngIf="isLogged()">Home</button> </a> -->
+        <a routerLink="/profile"><button mat-button color="primary" *ngIf="isLogged()">Profil</button></a>
+        <!-- <a routerLink="/rooms"><button mat-button color="primary">Pokoje</button></a> -->
+        <a routerLink="/places"><button mat-button color="primary" *ngIf="isLogged()">Wyszukaj nocleg</button></a>
+        <a routerLink="/places/my"><button mat-button color="primary" *ngIf="isLogged()">Moje obiekty</button></a>
+        <a routerLink="/reservations"><button mat-button color="primary" *ngIf="isLogged()">Rezerwacje</button></a>
+        <a routerLink="/offers"><button mat-button color="primary" *ngIf="isLogged()">Moja oferta</button></a>
+        <a routerLink="/register"><button mat-button color="primary" *ngIf="!isLogged()">Rejestracja</button></a>
+        <a routerLink="/login"><button mat-button color="primary" *ngIf="!isLogged()">Logowanie</button></a>
+        <a routerLink="/login" routerLinkActive="active"><button *ngIf="isLogged()" (click)="logout()" mat-button color="primary" >Wyloguj się</button></a>
       </div> 
       </ul>
     </mat-toolbar>

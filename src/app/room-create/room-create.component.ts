@@ -44,7 +44,7 @@ export class RoomCreateComponent {
   newImageUrl: string = '';
   selectedFile: File | null = null;
   createdRooms: any[] = [];
-  form: FormGroup; 
+  form: FormGroup;
   roomID: number = 0;
   roomNameFilter: string = '';
   constructor(private fb: FormBuilder, private http: HttpClient) {
@@ -57,7 +57,7 @@ export class RoomCreateComponent {
     });
     this.generateBasicRooms();
   }
-  
+
   generateBasicRooms() {
     this.roomID++;
     const room1 = {
@@ -79,7 +79,7 @@ export class RoomCreateComponent {
       facilities: 'Wi-Fi, TV, Air Conditioning',
     };
 
- 
+
     this.createdRooms.push(room1, room2);
   }
 
@@ -93,35 +93,6 @@ export class RoomCreateComponent {
   removeImageUrl(index: number) {
     this.imageUrls.splice(index, 1);
   }
-  /*
-  onSubmit() {
-    if (this.form.valid) {
-      const apiUrl = 'your_server_api_url';
-
-      // Assuming the server generates the RoomID, replace this logic accordingly
-      const generatedRoomID = Math.floor(Math.random() * 1000) + 1;
-
-      const roomData = {
-        roomID: generatedRoomID,
-        ...this.form.value,
-         images: [...this.imageUrls], 
-      };
-
-      this.http.post(apiUrl, roomData).subscribe(
-        (response) => {
-          console.log('Data sent successfully:', response);
-          this.createdRoom = response; 
-          this.form.reset();
-          this.imageUrls = [];
-        },
-        (error) => {
-          console.error('Error sending data:', error);
-          this.form.reset();
-        }
-      );
-    }
-  }*/
-
   onSubmit() {
     if (this.form.valid) {
       this.roomID++;
@@ -129,7 +100,7 @@ export class RoomCreateComponent {
       const createdRoom = {
         roomID: this.roomID,
         ...this.form.value,
-        images: [...this.imageUrls], 
+        images: [...this.imageUrls],
       };
 
       this.createdRooms.push(createdRoom);

@@ -1,94 +1,79 @@
-import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AccomodationCardComponent } from '../accomodation-card/accomodation-card.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PageEvent } from '@angular/material/paginator';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { ReviewService } from '../_services/review.service';
+import { Review } from '../models/review';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-review-component',
   templateUrl: './review-component.component.html',
   styleUrls: ['./review-component.component.css'],
   standalone: true,
-  imports: [MatSelectModule, MatInputModule, FormsModule, MatCardModule, MatButtonModule, RouterModule, MatDividerModule, MatGridListModule, AccomodationCardComponent, MatPaginatorModule, CommonModule]
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JsonPipe,
+    MatNativeDateModule,
+    AccomodationCardComponent, FormsModule, ReactiveFormsModule, RouterModule, MatListModule, MatFormFieldModule, MatTableModule, MatSelectModule, MatRadioModule, CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatGridListModule, MatPaginatorModule]
 })
 export class ReviewComponentComponent {
-  @Input() placeID: number = 0;
-  @Input() rating: number = 0;
-  @Input() imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
-  @Input() author: string = '';
-  @Input() text: string = '';
-  newOpinion = {
-    placeID:0,
-    rating: 1,
-    imageUrl: '',
-    author: '',
-    text: ''
-  };
-  opinions = [
-   
-    {
-      placeID:1,
-      rating: 5,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-      author: 'John Doe',
-      text: 'Great place to stay. I highly recommend it!',
-    },
-    {
-      placeID: 1,
-      rating: 4,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      author: 'Alice Smith',
-      text: 'The accommodations were clean and comfortable.',
-    },
-    {
-      placeID:2,
-      rating: 5,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-      author: 'Bob Johnson',
-      text: 'I had a wonderful experience at this location.',
-    },
-    { placeID:2,
-      rating: 3,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-      author: 'Emma Wilson',
-      text: 'Good value for ffffffffffffffffffffthe price. I would stay here again.',
-    },
-    {
-      rating: 5,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      author: 'Michael Brown',
-      text: 'The staff was friendly and helpful. 5 stars!',
-    }
-  ];
-  pagedOpinions: any[] = [];
-  pageSize = 3; 
-  onPageChange(event: PageEvent) {
-    
-    const startIndex = event.pageIndex * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedOpinions = this.opinions.slice(startIndex, endIndex);
-  }
-  ngOnInit() {
-    this.pagedOpinions = this.opinions.slice(0, this.pageSize);
-  }
-  submitOpinion() {
-   
-    this.opinions.push(this.newOpinion);
 
-   
-    this.newOpinion = {
-      placeID:1,
-      rating: 1,
-      imageUrl: '',
-      author: '',
-      text: ''
-    };
+  constructor(private reviewService: ReviewService, private route: ActivatedRoute) { }
+ 
+  ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.newReview.placeId = id;
+    this.getReviews();
+  }
+  getReviews() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.reviewService.getReviewsByPlaceId(id).subscribe(result => {
+      this.reviews = result;
+    })
+  }
+
+  submitReview() {
+    this.reviewService.addReview(
+      {
+        rating: this.rating.value,
+        content: this.content.value,
+        author: this.newReview.author,
+        placeId: this.newReview.placeId
+      } as Review
+    )
+      .subscribe(res => {
+        window.location.reload()
+        res
+      });
+  }
+  rating = new FormControl(0);
+  content = new FormControl('');
+  reviews: Review[] = []
+  newReview: Review = {
+    rating: 0,
+    author: "",
+    placeId: 0,
+    content: "",
+    at: new Date()
+
   }
 }

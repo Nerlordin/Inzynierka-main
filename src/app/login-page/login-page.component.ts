@@ -5,7 +5,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AuthService } from '../_services/auth.service';
 import { StorageService } from '../_services/storage.service';
@@ -42,12 +42,11 @@ export class LoginPageComponent {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private storageService: StorageService) { }
+  constructor( private router: Router,private authService: AuthService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
     }
   }
 
@@ -58,8 +57,7 @@ export class LoginPageComponent {
         this.storageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
-        this.reloadPage();
+        this.router.navigateByUrl("/places");
       },
       error: err => {
         this.errorMessage = err.error.message;

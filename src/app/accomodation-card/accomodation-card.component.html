@@ -1,29 +1,22 @@
+
 <mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ name }}</mat-card-title>
-    <mat-card-subtitle>{{ building }}</mat-card-subtitle>
-  </mat-card-header>
-  <div class="card-content-container">
-    <img mat-card-image [src]="imageUrl" alt="Accommodation Image">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{place?.name}}</mat-card-title>
+      <mat-card-subtitle>{{place?.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <!-- <img mat-card-image [src]="" alt="Accommodation Image"> -->
     <mat-card-content>
-      <div>
-        <div class="custom-font">{{ description }}</div>
-        <div class="custom-font">{{ voivodeship }}</div>
-        <div class="custom-font">{{ country }}</div>
-        <div class="custom-font">{{ category }}</div>    
-      </div>
+      <p>
+      <p>Liczba pokoi: {{place!.rooms.length!}}
+      </p>
     </mat-card-content>
-    <div class="rating-container">
-      <div class="stars">
-        
-        <i *ngFor="let _ of getFullStars()" class="fas fa-star"></i>
-        <i *ngFor="let _ of getEmptyStars()" class="far fa-star"></i>
-      </div>
-      <div class="rating-value">{{ rating }}</div>
-    </div>
-  </div>
-  <mat-card-actions>
-    <a [routerLink]="'accomodation/' + placeID"><button mat-raised-button color="primary">Sprawdź szczegóły</button></a>
-  </mat-card-actions>
-</mat-card>
+    <mat-card-actions>
+      <button (click)="getDetails(place!.id)"mat-raised-button color="primary">Details</button>
+      <a routerLink="/places/reviews/{{place?.id}}"><button mat-raised-button color="primary">Reviews</button></a>
+    </mat-card-actions>
+  </mat-card>
+  <mat-divider></mat-divider>
+
+
+

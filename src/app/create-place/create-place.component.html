@@ -1,0 +1,184 @@
+<div style="align-items: center" class="container">
+  <h1>Stwórz ofertę miejsca noclegowego</h1>
+  <form [formGroup]="placeForm">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Nazwa</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="!placeForm.valid">{{ getPlaceErrorMessage('name') }}</mat-error>   
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Kategoria</mat-label>
+          <mat-select formControlName="category">
+            <mat-select-trigger>
+              {{ placeForm.get("category")?.value! || "" }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let cat of categories" [value]="cat">{{
+              cat
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Województwo</mat-label>
+          <mat-select formControlName="voivodeship">
+            <mat-select-trigger>
+              {{ placeForm.get("voivodeship")?.value! || "" }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let v of voivodeships" [value]="v">{{
+              v
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="!placeForm.valid">{{ getPlaceErrorMessage('voivodeship') }}</mat-error> 
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Miasto</mat-label>
+          <input matInput formControlName="city" placeholder="City" />
+          <mat-error *ngIf="!placeForm.valid">{{ getPlaceErrorMessage('city') }}</mat-error> 
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Ulica</mat-label>
+          <input matInput formControlName="street" />
+          <mat-error *ngIf="!placeForm.valid">{{ getPlaceErrorMessage('street') }}</mat-error> 
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nr budynku</mat-label>
+          
+          <input matInput formControlName="building" />
+        </mat-form-field>
+      </div>
+      <mat-form-field style="width: 50%">
+        <mat-label>Opis</mat-label>
+        <textarea matInput formControlName="description" name="text"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+  <div>
+    <h3>Zdjęcia:</h3>
+    <div *ngIf="imageUrls.length > 0" class="image-container">
+      <div *ngFor="let imageUrl of imageUrls; let i = index">
+        <img [src]="imageUrl" alt="Accomodation Image" />
+        <button mat-icon-button (click)="removeImageUrl(i)"></button>
+      </div>
+    </div>
+  </div>
+  <input type="file" (change)="onFileChanged($event)" multiple />
+</div>
+<div>
+  <h1>Pokoje</h1>
+  <form [formGroup]="roomForm">
+    <div class="container">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Nazwa</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="!roomForm.valid">{{ getRoomErrorMessage('name') }}</mat-error> 
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Liczba osób</mat-label>
+          <input matInput formControlName="capacity" />
+          <mat-error *ngIf="!roomForm.valid">{{ getRoomErrorMessage('capacity') }}</mat-error> 
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Cena za noc</mat-label>
+          <input matInput formControlName="pricePerNight" />
+          <mat-error *ngIf="!roomForm.valid">{{ getRoomErrorMessage('pricePerNight') }}</mat-error> 
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Udogodnienia</mat-label>
+          <mat-select formControlName="facilities" multiple>
+            <mat-select-trigger>
+              {{ roomForm.get("facilities")?.value! || "" }}
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let fac of possibleFacilities; track: fac"
+              [value]="fac"
+              >{{ fac }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field style="width: 25%">
+        <mat-label>Opis</mat-label>
+        <textarea matInput formControlName="description" name="text"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<button
+  style="margin-left: 10px"
+  mat-raised-button
+  [disabled]="!placeForm.valid"
+  color="primary"
+  (click)="onSubmit()"
+>
+  Zapisz
+</button>
+<button
+  style="margin-left: 10px"
+  mat-raised-button
+  color="primary"
+  [disabled]="!roomForm.valid"
+  (click)="addRoom()"
+>
+  Dodaj pokój
+</button>
+<button
+  style="margin-left: 10px"
+  mat-raised-button
+  color="warn"
+  (click)="clearRooms()"
+>
+  Wyczyść pokoje
+</button>
+<div *ngIf="rooms.length == 0" style="margin-left: 10px; color: red">
+  Musisz dodac conajmniej jeden pokój!
+</div>
+<div *ngIf="rooms.length > 0">
+  <table mat-table [dataSource]="rooms" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Opis</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef>Liczba osób</th>
+      <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+    </ng-container>
+    <ng-container matColumnDef="pricePerNight">
+      <th mat-header-cell *matHeaderCellDef>Cena za noc</th>
+      <td mat-cell *matCellDef="let element">{{ element.pricePerNight }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>Stan</th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+    <ng-container matColumnDef="facilities">
+      <th mat-header-cell *matHeaderCellDef>Udogodnienia</th>
+      <td mat-cell *matCellDef="let element">
+        {{ getFacilities(element.facilities) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Akcje</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" (click)="removeRoom(element)">
+          Usuń
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

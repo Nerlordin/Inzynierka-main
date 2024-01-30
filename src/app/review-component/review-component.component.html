@@ -1,56 +1,50 @@
-<mat-grid-list cols="1" rowHeight="8:1">
-  <mat-grid-tile>
-    <form (ngSubmit)="submitOpinion()">
+<h1 style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px">
+  Opinie
+</h1>
+<h3 style="margin-left: 15px; margin-right: 15px" *ngIf="reviews.length < 1">
+  Nie ma opinii o tym obiekcie.
+</h3>
+<div style="margin-left: 15px; margin-right: 15px" class="container">
+  <ng-container *ngFor="let opinion of reviews">
+    <mat-divider></mat-divider>
+    <mat-card class="review">
+      <mat-card-content>
+        <div class="rating">
+          <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+            <i class="material-icons">{{
+              i <= opinion.rating ? "star" : "star_border"
+            }}</i>
+          </ng-container>
+        </div>
+        <div>
+          <strong>{{ opinion.author }}</strong>
+           {{ opinion.at | date : "dd/MM/yyyy" }}
+        </div>
+        {{ opinion.content }}
+      </mat-card-content>
+    </mat-card>
+    <mat-divider></mat-divider>
+  </ng-container>
+</div>
+<div class="column">
+  <form (ngSubmit)="submitReview()">
+    <div>
+      <mat-form-field style="width: 100%">
+        <mat-label>Twoja opinia</mat-label>
+        <textarea matInput [formControl]="content" name="text"></textarea>
+      </mat-form-field>
+    </div>
+    <div>
       <mat-form-field>
-        <mat-label>Twoja ocena</mat-label>
-        <mat-select [(ngModel)]="newOpinion.rating" name="rating">
-          <mat-option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">{{ i }}</mat-option>
+        <mat-label>Ocena:</mat-label>
+        <mat-select [formControl]="rating" name="rating">
+          <mat-option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">{{
+            i
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
-    
-      <mat-form-field>
-        <mat-label>Twoje Imie i nazwisko</mat-label>
-        <input matInput [(ngModel)]="newOpinion.author" name="author">
-      </mat-form-field>
-    
-      <mat-form-field>
-        <mat-label>Twoja Opinia</mat-label>
-        <textarea matInput [(ngModel)]="newOpinion.text" name="text"></textarea>
-      </mat-form-field>
-    
-      <button type="submit" mat-raised-button color="primary">Dodaj opinie</button>
-    </form>
-  </mat-grid-tile>
-  <ng-container *ngFor="let opinion of pagedOpinions">
-    <div *ngIf="opinion.placeID == placeID">
-    <mat-grid-tile>
-     
-      <mat-card class="review">
-       
-        <mat-card-content>
-          
-          <div class="rating">
-            
-            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
-              <i class="material-icons">{{ i <= opinion.rating ? 'star' : 'star_border' }}</i>
-            </ng-container>
-          </div>
-          <img [src]="opinion.imageUrl" alt="{{ opinion.author }}" class="comment-avatar">
-          {{ opinion.image }}<strong>{{ opinion.author }}</strong>: {{ opinion.text }}
-        
-        </mat-card-content>
-      
-      </mat-card>
-    
-    </mat-grid-tile>
-  </div>
-  </ng-container>
-</mat-grid-list>
-
-
-<mat-paginator
-  [length]="opinions.length"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[3, 6, 9]"
-  (page)="onPageChange($event)"
-></mat-paginator>
+    </div>
+    <button type="submit" mat-raised-button color="primary">Dodaj</button>
+  </form>
+</div>
+<div class="column2"></div>

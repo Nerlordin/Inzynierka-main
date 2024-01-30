@@ -1,1 +1,21 @@
-<app-review-component></app-review-component>
+<h1 style="margin-left:15px;margin-bottom:15px;margin-right:15px">Opinie</h1>
+<h3 style="margin-left:15px;margin-right:15px" *ngIf="reviews.length <1 ">Nie ma opinii o tym obiekcie.</h3>
+<div style="margin-left:15px;margin-right:15px" class="container">
+    <ng-container *ngFor="let opinion of reviews">
+      <mat-divider></mat-divider>
+      <mat-card class="review">
+        <mat-card-content>
+          <div class="rating">
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+              <i class="material-icons">{{
+                i <= opinion.rating ? "star" : "star_border"
+              }}</i>
+            </ng-container>
+          </div>
+          <strong>{{ opinion.author }}</strong>    <strong>{{ opinion.at | date : "dd/MM/yyyy"  }}</strong>
+          : {{ opinion.content }}
+        </mat-card-content>
+      </mat-card>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </div>

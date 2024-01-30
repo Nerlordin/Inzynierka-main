@@ -1,14 +1,10 @@
 <section class="filtr">
     <h1>Filtruj wyniki</h1>
 
-<section class="example-section" [formGroup]="accomodation_type">
+<section class="example-section">
+    <input formControlName="maxPrice"/>
     <h4>Cena:</h4>
-    <mat-slider min="200" max="500">
-    <input value="300" matSliderStartThumb>
-    <input value="400" matSliderEndThumb>
-  </mat-slider>
-      <p>Aktualna cena: {{ accomodation_type.get('cena')?.value }}</p>
-
+    <!-- <p>Aktualna cena: {{ searchFilter.get('cena')?.value }}</p> -->
       
     <h4>Rodzaj noclegu:</h4>
     <p><mat-checkbox formControlName="hotel">Hotel</mat-checkbox></p>

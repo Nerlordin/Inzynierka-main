@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { PlaceService } from '../_services/place.service';
+import { Place } from '../models/place';
+
 @Component({
   selector: 'app-accomodation-create',
   templateUrl: './accomodation-create.component.html',
@@ -44,23 +47,24 @@ export class AccomodationCreateComponent {
   createdPlaces: any[] = [];
 
   placeID: number = 0;
-  form: FormGroup; 
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder,private placeService: PlaceService, private router: Router) {
+
     this.form = this.fb.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
-      city: [null, Validators.required],
+      name: [null, Validators.required, Validators.minLength(5)],
+      description: [null, Validators.required, Validators.maxLength(100)],
+      city: [null, Validators.required, Validators.maxLength(30)],
       building: [null, Validators.required],
       street: [null, Validators.required],
       voivodeship: [null, Validators.required],
-      country: [null, Validators.required], 
+      country: [null, Validators.required],
       category: [null, Validators.required],
       file: [''],
     });
   }
-  
-  
+
+
 
   addImageUrl() {
     if(this.imageUrls.length<5){
@@ -81,17 +85,15 @@ export class AccomodationCreateComponent {
  /* onSubmit() {
     if (this.form.valid) {
       const apiUrl = 'your_server_api_url';
-     
+
       this.http.post(apiUrl, this.form.value).subscribe(
         (response) => {
-          console.log('Data sent successfully:', response);    
-          this.form.reset(); 
-          this.imageUrls = [];
+          console.log('Data sent successfully:', response);
+          this.form.reset();
         },
         (error) => {
           console.error('Error sending data:', error);
           this.form.reset();
-          this.imageUrls = []; 
         }
       );
     }
@@ -102,7 +104,7 @@ export class AccomodationCreateComponent {
       const createdPlace = {
         placeID: this.placeID,
         ...this.form.value,
-        images: [...this.imageUrls], 
+        images: [...this.imageUrls],
       };
       this.createdPlaces.push(createdPlace);
       this.form.reset();

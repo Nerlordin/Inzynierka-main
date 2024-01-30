@@ -43,7 +43,6 @@
               </mat-form-field>
             </div>
           
-            
             <div class="example-container">
               <mat-form-field>
                 <mat-label>Country</mat-label>
@@ -83,9 +82,8 @@
       <div *ngFor="let createdPlace of createdPlaces">
         <h2>Created Place</h2>
         <p>Room ID: {{ createdPlace.placeID }}</p>
-        <p>name: {{ createdPlace.name }}</p>
         <p>description: {{ createdPlace.description }}</p>
-        <p>building: {{ createdPlace.building }}</p>
+        <p> building: {{ createdPlace.building }}</p>
         <p>street: {{ createdPlace.street }}</p>
         <p>country: {{ createdPlace.country }}</p>
         <p>category: {{ createdPlace.category }}</p>

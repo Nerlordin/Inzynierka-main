@@ -18,19 +18,19 @@ export class StorageService {
 
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-  }
-  public logOut() : void{
-    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, user.token);
   }
 
-  public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
+  public signOut() : void{
+    window.sessionStorage.clear();
+  }
+
+  public getToken(): string{
+    if(window.sessionStorage.getItem(USER_KEY) == null){
+      return "";
+    }else {
+      return window.sessionStorage.getItem(USER_KEY)!;
     }
-
-    return {};
   }
 
   public isLoggedIn(): boolean {

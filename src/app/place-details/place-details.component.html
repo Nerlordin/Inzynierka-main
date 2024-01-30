@@ -1,0 +1,66 @@
+<div style="margin-right: 15px; margin-left: 15px" class="card">
+  <div class="card-content">
+    <div class="image-wrapper">
+      <img mat-card-image [src]="" alt="Hotel Image" />
+      <div class="rating-kwadrat"></div>
+    </div>
+    <div class="info">
+      <p class="opis">{{ place?.name }}</p>
+      <p class="opis">Opis: {{ place?.description }}</p>
+      <p class="cena">Kategoria: {{ place?.placeCategory }}</p>
+      <p class="adres">
+        Adres: {{ place?.address?.city }}, {{ place?.address?.street }}
+        {{ place?.address?.building }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-right: 15px; margin-left: 15px">
+  <h2>Pokoje</h2>
+  <div style="margin-bottom: 100px"
+    style="margin-right: 15px; margin-left: 15px"
+    *ngIf="place?.rooms?.length! > 0"
+  >
+    <table mat-table [dataSource]="place!.rooms!" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="capacity">
+        <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>
+        <td mat-cell *matCellDef="let element">{{ element.capacity }}</td>
+      </ng-container>
+      <ng-container matColumnDef="pricePerNight">
+        <th mat-header-cell *matHeaderCellDef>Cena za noc</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.pricePerNight }} zł
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilities">
+        <th mat-header-cell *matHeaderCellDef>Udogodnienia</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getFacilities(element.facilities) }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+<app-review-page ></app-review-page>
+
+  <div  style="margin-top:20px" class="gallery"><h1>Galeria zdjęć</h1></div>
+  <div class="imgcontainer">
+    <div class="gallery" *ngFor="let image of imagesToShow; let i = index">
+      <img [src]="imagesToShow[i]" (click)="open(i)" />
+    </div>
+  </div>
+</div>
+<br>
+<div>
+</div>
